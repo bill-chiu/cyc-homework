@@ -40,4 +40,8 @@ https://www.hololive.tv/
 虛擬小姐在看着你 (バーチャルさんはみている)官方網站
 https://virtualsan-looking.jp/
 
+カグラナナ / ななかぐ辛党Ch
+https://www.youtube.com/channel/UCbfv8uuUXt3RSJGEwxny5Rw
 
+HIMEHINA Channel
+https://www.youtube.com/channel/UCFv2z4iM5vHrS8bZPq4fHQQ
