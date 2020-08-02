@@ -5,8 +5,7 @@
 信箱 xaalibertieraax@gmail.com
 會已與刪除的動作
 
-本網站使用的圖像的版權，
-商標權和其他知識產權屬於原內容提供者(にじさんじ、hololive、バーチャルさんはみている與其他個人YT網站)
+本網站使用的圖像的版權、商標權和其他知識產權屬於原內容提供者(にじさんじ、hololive、バーチャルさんはみている與其他個人YT網站)
 
 相關資料來源:
 
@@ -45,3 +44,6 @@ https://www.youtube.com/channel/UCbfv8uuUXt3RSJGEwxny5Rw
 
 HIMEHINA Channel
 https://www.youtube.com/channel/UCFv2z4iM5vHrS8bZPq4fHQQ
+
+战斗吧歌姬(ReVdol!)
+https://www.revdol.com/
