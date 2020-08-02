@@ -449,7 +449,7 @@
   .single-book .single-book__price {
     font-size: 18px;
     font-weight: 600;
-    font-style: italic;
+    /* font-style: italic; */
     color: #c18f59; }
   @media (max-width: 1250px) {
     .single-book {
