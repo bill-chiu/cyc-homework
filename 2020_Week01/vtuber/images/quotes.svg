@@ -31,7 +31,7 @@
     <style>
       .cls-1 {
         font-size: 85px;
-        fill: #c18f59;
+        fill: #66ccff;
         text-anchor: middle;
         font-family: "Calisto MT";
         font-weight: 700;
