@@ -108,6 +108,8 @@
   z-index: 2;
  }
 
+
+
 .site-navigation-inner {
  
   align-items: center;
@@ -116,6 +118,15 @@
   position: fixed; 
   width: 100%;
   
+}
+
+.site-navigation-inner .site-bar{
+  
+  align-items: center; 
+  position: fixed;   
+  top: 4%;
+  right: 4%;
+
 }
 
 .main-navigation {
@@ -156,7 +167,9 @@
 /* Navigation burger */
 .burger-container {
   cursor: pointer;
-  z-index: 3; }
+  z-index: 3; 
+
+}
 
 .bar1, .bar2, .bar3 {
   width: 50px;

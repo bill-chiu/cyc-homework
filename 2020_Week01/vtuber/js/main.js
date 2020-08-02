@@ -13,17 +13,7 @@ $(document).ready(function() {
 	
 		}
 	});
-	$('.burger-container2').on('click', function() {
-	
 
-		if($('#myBtn').hasClass('change')) {
-			$('body').addClass('stop-scroll');
-			
-		} else {
-			$('body').removeClass('stop-scroll');
-	
-		}
-	});
 
 
 
