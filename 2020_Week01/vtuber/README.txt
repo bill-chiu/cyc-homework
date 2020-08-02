@@ -9,20 +9,8 @@
 
 相關資料來源:
 
-Author - 100% Fully Responsive One Page HTML5 Template
-
-AUTHOR:
-DESIGNED & DEVELOPED by FreeHTML5.co
-
-Website: http://freehtml5.co/
-Twitter: http://twitter.com/fh5co
-Facebook: http://facebook.com/fh5co
-
-jQuery
-http://jquery.com/
-
-Slick Slider
-http://kenwheeler.github.io/slick/
+使用範例
+https://www.free-css.com/free-css-templates/page255/author
 
 Icon Images:
 https://www.flaticon.com/
