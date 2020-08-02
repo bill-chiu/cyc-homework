@@ -120,6 +120,15 @@
   
 }
 
+.icon{
+  
+  align-items: center; 
+  position: fixed;   
+  top: 95.5%;
+  right: 4%;
+
+}
+
 .site-navigation-inner .site-bar{
   
   align-items: center; 
