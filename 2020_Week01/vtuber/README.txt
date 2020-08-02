@@ -1,12 +1,12 @@
 本網站內容皆為練習交流使用
 無任何商業使用行為
 如有侵權 請通知本人
-電話 0981384898 
+電話 +886981384898 
 信箱 xaalibertieraax@gmail.com
 會已與刪除的動作
 
-本網站使用的遊戲圖像的版權，
-商標權和其他知識產權屬於原內容提供者(にじさんじ、hololive、バーチャルさんはみている)
+本網站使用的圖像的版權，
+商標權和其他知識產權屬於原內容提供者(にじさんじ、hololive、バーチャルさんはみている與其他個人YT網站)
 
 相關資料來源:
 
@@ -25,8 +25,8 @@ http://jquery.com/
 Slick Slider
 http://kenwheeler.github.io/slick/
 
-Demo Images:
-http://unsplash.com
+Icon Images:
+https://www.flaticon.com/
 
 虛擬UP主(萌娘百科)
 https://mzh.moegirl.org.cn/zh-tw/%E8%99%9A%E6%8B%9FUP%E4%B8%BB

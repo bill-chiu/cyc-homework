@@ -448,7 +448,7 @@
     font-size: 18px; }
   .single-book .single-book__price {
     font-size: 18px;
-    font-weight: bolder ;
+    font-weight: 900 ;
     font-style: italic;  
 
     color: #c18f59; }
