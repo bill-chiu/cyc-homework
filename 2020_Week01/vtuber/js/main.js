@@ -7,10 +7,24 @@ $(document).ready(function() {
 
 		if($('#myBtn').hasClass('change')) {
 			$('body').addClass('stop-scroll');
+			
 		} else {
 			$('body').removeClass('stop-scroll');
+	
 		}
 	});
+	$('.burger-container2').on('click', function() {
+	
+
+		if($('#myBtn').hasClass('change')) {
+			$('body').addClass('stop-scroll');
+			
+		} else {
+			$('body').removeClass('stop-scroll');
+	
+		}
+	});
+
 
 
 	/* About me slider */
@@ -37,6 +51,15 @@ $(document).ready(function() {
 	
 });
 
+$('.navbar-toggle').click(function() {
+	$(this).toggleClass('act');
+		if($(this).hasClass('act')) {
+			$('.main-menu').addClass('act');
+		}
+		else {
+			$('.main-menu').removeClass('act');
+		}
+});
 
 
 var counta = 0;
