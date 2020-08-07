@@ -1,0 +1,39 @@
+create database myMenu;
+use mymenu;
+
+create table customers(
+
+  customerID int primary key,
+  companyName varchar(20)
+);
+INSERT INTO customers VALUES  (1,'東海排骨');
+INSERT INTO customers VALUES  (2,'松鶴壽司');
+
+create table books(
+
+  bookID int primary key,
+  bookName varchar(20),
+  ProductID int,
+  bookNun int
+);
+
+INSERT INTO customers VALUES  (1,'松鶴壽司');
+
+
+create table Preson(
+
+  PresonID int primary key,
+  PresonName varchar(20)
+
+);
+
+INSERT INTO customers VALUES  (1,'肥宅');
+
+create table Menu(
+
+  MenuID int primary key,
+  MenuName varchar(20),
+  MenuPrice int
+);
+INSERT INTO customers VALUES  (1,'壽司');
+INSERT INTO customers VALUES  (2,'壽司');
