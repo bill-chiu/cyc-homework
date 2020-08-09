@@ -12,7 +12,7 @@ use mybendon;
 -- 
 
 CREATE TABLE suppliers(
-  SupplierID int auto_increment NOT NULL primary key,
+  SupplierID int AUTO_INCREMENT NOT NULL primary key,
   SupplierName varchar(40) NOT NULL default '',
   Address varchar(60) default NULL,
   City varchar(15) default NULL,  
@@ -28,7 +28,7 @@ CREATE TABLE suppliers(
 -- 
 
 CREATE TABLE menu(
-    meunId int auto_increment not null primary key,
+    meunId int AUTO_INCREMENT not null primary key,
     SupplierID int not null,
     menuClass enum('noodles','rice','soup','bun','bread','drink'),
     menuName varchar(10) not null,
@@ -42,7 +42,7 @@ CREATE TABLE menu(
 -- 
 
 CREATE TABLE customers(
-    CustomerId int auto_increment not null primary key,
+    CustomerId int AUTO_INCREMENT not null primary key,
     CustomerName varchar(15) not null,
     CustomerPhone char(10) not null,
     CustomerPostalCode varchar(10) default NULL,
@@ -55,6 +55,17 @@ CREATE TABLE customers(
 -- 
 -- 建立訂單資料表
 -- 
+
+CREATE TABLE orders(
+    orderid int AUTO_INCREMENT PRIMARY key,   
+    CustomerId int, 
+    meunId int,
+    quantity int,   
+    data datetime not null,
+    data2 timestamp
+);
+
+
 
 -- ============================================================
 
@@ -111,6 +122,34 @@ INSERT INTO menu (SupplierID, menuClass, menuName, price) VALUES
 -- 
 
 INSERT INTO customers (CustomerName, CustomerPhone, CustomerPostalCode , Contacts, CustomerAddress) VALUES 
-('台中教育大學',  '0422183199', 403, 'Bill', '台中市西區民生路140號'),
-('中興大學',      '047315459',  402,'Peter','台中市南區興大路145號'),
-('勤益科技大學',  '0423924505', 411, 'Mary','台中市太平區中山路二段57號');
+('台中教育大學',  '0422183199', 403, '肥宅', '台中市西區民生路140號'),
+('中興大學',      '047315459',  402,'正妹','台中市南區興大路145號'),
+('勤益科技大學',  '0423924505', 411, '帥哥','台中市太平區中山路二段57號');
+
+
+-- 
+-- 加入訂單資料
+-- 
+
+INSERT INTO orders (CustomerId, meunId, quantity,data) VALUES 
+(1, 1,5, '2020-08-09'),
+(2, 13,6, '2020-08-09'),
+(3, 8,6, '2020-08-08'),
+(3, 16,3, '2020-08-08'),
+(2, 4,2, '2020-08-07'),
+(1, 20,1, '2020-08-07'),
+(3, 15,7,'2020-08-06'),
+(2, 5,3,'2020-08-05');
+
+
+
+
+CREATE TABLE orders(
+    orderid int AUTO_INCREMENT PRIMARY key,   
+    CustomerId int, 
+    meunId int,
+    quantity int,   
+    data datetime not null,
+    data2 timestamp
+);
+
