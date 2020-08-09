@@ -1,39 +1,23 @@
-create database myMenu;
-use mymenu;
+create database mybendon;
+use mybendon;
 
-create table customers(
+CREATE TABLE suppliers(
+  SupplierID int auto_increment NOT NULL primary key,
+  CompanyName varchar(40) NOT NULL default '',
+  Address varchar(60) default NULL,
+  City varchar(15) default NULL,  
+  Region varchar(15) default NULL,
+  PostalCode varchar(10) default NULL,
+  Phone varchar(24) default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-  customerID int primary key,
-  companyName varchar(20)
-);
-INSERT INTO customers VALUES  (1,'東海排骨');
-INSERT INTO customers VALUES  (2,'松鶴壽司');
-
-create table books(
-
-  bookID int primary key,
-  bookName varchar(20),
-  ProductID int,
-  bookNun int
-);
-
-INSERT INTO customers VALUES  (1,'松鶴壽司');
+INSERT INTO suppliers(CompanyName,Address,City,Region,PostalCode,Phone)VALUES
+('紅門','桃園縣龜山鄉復興北路15號','桃園縣','龜山鄉',333,033272929),
+('京采饅頭包子','新北市土城區裕民路185巷32號','新北市','土城區',236,0282601040),
+('阿貴姑','台中市西屯區文華路2號','台中市','西屯區',407,0424521779),
+('翫味','台中市北區太平路89號','台中市','北區',404,0422292520),
+('香港黃記美味燒臘','新北市中和區大勇街26號','新北市','中和區',235,0229403232),
+('中興素食','台中市西區中美街320號','台中市','西區',403,0423055565),
+('黃家胡椒餅','台中市西區向上路一段142-1號','台中市','西區',403,0953912901)
 
 
-create table Preson(
-
-  PresonID int primary key,
-  PresonName varchar(20)
-
-);
-
-INSERT INTO customers VALUES  (1,'肥宅');
-
-create table Menu(
-
-  MenuID int primary key,
-  MenuName varchar(20),
-  MenuPrice int
-);
-INSERT INTO customers VALUES  (1,'壽司');
-INSERT INTO customers VALUES  (2,'壽司');
