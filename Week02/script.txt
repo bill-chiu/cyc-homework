@@ -1,9 +1,19 @@
+-- 
+-- 建立資料庫mybendon
+-- 
+
 create database mybendon;
 use mybendon;
 
+-- ============================================================
+
+-- 
+-- 建立供應商資料表
+-- 
+
 CREATE TABLE suppliers(
   SupplierID int auto_increment NOT NULL primary key,
-  CompanyName varchar(40) NOT NULL default '',
+  SupplierName varchar(40) NOT NULL default '',
   Address varchar(60) default NULL,
   City varchar(15) default NULL,  
   Region varchar(15) default NULL,
@@ -11,24 +21,61 @@ CREATE TABLE suppliers(
   Phone varchar(24) default NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ============================================================
+
+-- 
+-- 建立菜單資料表
+-- 
+
 CREATE TABLE menu(
-    menuId int auto_increment not null primary key,
+    meunId int auto_increment not null primary key,
     SupplierID int not null,
     menuClass enum('noodles','rice','soup','bun','bread','drink'),
     menuName varchar(10) not null,
     price int not null
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO suppliers(CompanyName,Address,City,Region,PostalCode,Phone)VALUES
-('紅門','桃園縣龜山鄉復興北路15號','桃園縣','龜山鄉',333,033272929),
-('京采饅頭包子','新北市土城區裕民路185巷32號','新北市','土城區',236,0282601040),
-('阿貴姑','台中市西屯區文華路2號','台中市','西屯區',407,0424521779),
-('翫味','台中市北區太平路89號','台中市','北區',404,0422292520),
-('香港黃記美味燒臘','新北市中和區大勇街26號','新北市','中和區',235,0229403232),
-('中興素食','台中市西區中美街320號','台中市','西區',403,0423055565),
-('黃家胡椒餅','台中市西區向上路一段142-1號','台中市','西區',403,0953912901)
+-- ============================================================
 
+-- 
+-- 建立訂購人資料表
+-- 
 
+CREATE TABLE customers(
+    CustomerId int auto_increment not null primary key,
+    CustomerName varchar(15) not null,
+    CustomerPhone char(10) not null,
+    CustomerPostalCode varchar(10) default NULL,
+    Contacts varchar(5),
+    CustomerAddress varchar(50) not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ============================================================
+
+-- 
+-- 建立訂單資料表
+-- 
+
+-- ============================================================
+
+-- 
+-- 加入供應商資料
+-- 
+
+INSERT INTO suppliers(SupplierName,Address,City,Region,PostalCode,Phone)VALUES
+('紅門','桃園縣龜山鄉復興北路15號','桃園縣','龜山鄉',333,'033272929'),
+('京采饅頭包子','新北市土城區裕民路185巷32號','新北市','土城區',236,'0282601040'),
+('阿貴姑','台中市西屯區文華路2號','台中市','西屯區',407,'0424521779'),
+('翫味','台中市北區太平路89號','台中市','北區',404,'0422292520'),
+('香港黃記美味燒臘','新北市中和區大勇街26號','新北市','中和區',235,'0229403232'),
+('中興素食','台中市西區中美街320號','台中市','西區',403,'0423055565'),
+('黃家胡椒餅','台中市西區向上路一段142-1號','台中市','西區',403,'0953912901');
+
+-- ============================================================
+
+-- 
+-- 加入菜單資料
+-- 
 
 INSERT INTO menu (SupplierID, menuClass, menuName, price) VALUES 
 (1, 'noodles', '大腸麵線', 65),
@@ -47,6 +94,23 @@ INSERT INTO menu (SupplierID, menuClass, menuName, price) VALUES
 (4, 'drink', '四季春', 30),
 (4, 'drink', '紅茶拿鐵', 50),
 (4, 'drink', '綠茶多多', 50),
+(5, 'rice', '三寶飯', 80),
+(5, 'rice', '叉燒飯', 75),
+(5, 'rice', '燒肉飯', 65),
+(5, 'rice', '蒜泥白肉飯', 60),
+(6, 'rice', '白飯', 60),
+(6, 'rice', '五穀飯', 60),
+(6, 'noodles', '炒麵', 60),
+(7, 'bread', '原味', 40),
+(7, 'bread', '起司', 40);
 
+-- ============================================================
 
+-- 
+-- 加入訂購人資料
+-- 
 
+INSERT INTO customers (CustomerName, CustomerPhone, CustomerPostalCode , Contacts, CustomerAddress) VALUES 
+('台中教育大學',  '0422183199', 403, 'Bill', '台中市西區民生路140號'),
+('中興大學',      '047315459',  402,'Peter','台中市南區興大路145號'),
+('勤益科技大學',  '0423924505', 411, 'Mary','台中市太平區中山路二段57號');
