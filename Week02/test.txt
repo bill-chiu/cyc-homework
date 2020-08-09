@@ -1,0 +1,13 @@
+
+-- 查詢練習題(使用JOIN AS DESC)
+
+-- 顯示出八八節有哪些訂單且超過200塊並用高到低排序
+
+SELECT SupplierName,m.menuName,m.price,o.quantity,m.price*o.quantity as totalprice,data
+
+FROM suppliers s 
+JOIN menu m ON s.SupplierID = m.SupplierID
+JOIN orders o ON m.meunId = o.meunId
+
+WHERE orderId IN (SELECT orderId FROM orders WHERE data = '2020-08-08') AND m.price*o.quantity>200
+ORDER BY m.price*o.quantity DESC;
