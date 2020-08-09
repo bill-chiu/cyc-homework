@@ -11,6 +11,14 @@ CREATE TABLE suppliers(
   Phone varchar(24) default NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE menu(
+    menuId int auto_increment not null primary key,
+    SupplierID int not null,
+    menuClass enum('noodles','rice','soup','bun','bread','drink'),
+    menuName varchar(10) not null,
+    price int not null
+);
+
 INSERT INTO suppliers(CompanyName,Address,City,Region,PostalCode,Phone)VALUES
 ('紅門','桃園縣龜山鄉復興北路15號','桃園縣','龜山鄉',333,033272929),
 ('京采饅頭包子','新北市土城區裕民路185巷32號','新北市','土城區',236,0282601040),
@@ -19,5 +27,26 @@ INSERT INTO suppliers(CompanyName,Address,City,Region,PostalCode,Phone)VALUES
 ('香港黃記美味燒臘','新北市中和區大勇街26號','新北市','中和區',235,0229403232),
 ('中興素食','台中市西區中美街320號','台中市','西區',403,0423055565),
 ('黃家胡椒餅','台中市西區向上路一段142-1號','台中市','西區',403,0953912901)
+
+
+
+INSERT INTO menu (SupplierID, menuClass, menuName, price) VALUES 
+(1, 'noodles', '大腸麵線', 65),
+(1, 'rice', '米糕', 40),
+(1, 'rice', '肉圓', 40),
+(1, 'soup', '貢丸湯', 35),
+(2, 'bun', '芝麻包', 100),
+(2, 'bun', '高麗菜包', 100),
+(2, 'bread', '白饅頭', 40),
+(2, 'bread', '芋香饅頭', 80),
+(3, 'noodles', '肉醬乾麵', 40),
+(3, 'noodles', '麻醬麵', 40),
+(3, 'noodles', '溫州大餛飩麵', 60),
+(3, 'rice', '滷肉飯', 35),
+(4, 'drink', '阿薩姆紅茶',25),
+(4, 'drink', '四季春', 30),
+(4, 'drink', '紅茶拿鐵', 50),
+(4, 'drink', '綠茶多多', 50),
+
 
 
