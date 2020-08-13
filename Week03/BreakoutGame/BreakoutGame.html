@@ -66,25 +66,19 @@
             drawItem();
 
             brickrandow = Math.ceil(Math.random() * 4);
-     
+
             var bricksa = [];
             var bricks = [];
 
-            for (var j = 0; j< 4; j++) {
-             
+            for (var j = 0; j < 4; j++) {
                 for (var i = 0; i < 8; i++) {
                     brickrandow = Math.ceil(Math.random() * 4);
 
-                
                     bricksa.push(brickrandow);
-                 
                 }
                 bricks.push(bricksa);
                 bricksa = [];
                 console.log(bricks);
-          
-             
-           
             }
 
 
@@ -95,7 +89,7 @@
             var brickWidth = canvas.width / bricksPerRow;
 
             // Brick Layout: 1 is orange, 2 is green, 3 is gray, 0 means no brick 
-        
+
             // iterate through the bricks array and draw each brick using drawBrick()
             function createBricks() {
                 for (var i = 0; i < bricks.length; i++) {
@@ -141,8 +135,23 @@
 
             createBricks();
 
+            var score = 0;
 
+            function displayScoreBoard() {
+                //Set the text font and color
+                context.fillStyle = 'rgb(50,100,50)';
+                context.font = "20px Times New Roman";
+
+                //Clear the bottom 30 pixels of the canvas
+                context.clearRect(0, canvas.height - 30, canvas.width, 30);
+                // Write Text 5 pixels from the bottom of the canvas
+                context.fillText('Score: ' + score, 10, canvas.height - 5);
+            }
+
+            displayScoreBoard();
         });
+
+
     </script>
 
     <style type="text/css">

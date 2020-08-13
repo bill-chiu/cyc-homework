@@ -1,0 +1,496 @@
+本練習為 HTML5 遊戲習作，原創作者為 Aditya Ravi Shankar，作品網址:
+http://www.adityaravishankar.com/2011/10/html5-game-development-tutorial-breakout-i-introduction-to-canvas/
+
+
+0.  複製 jquery.js 、*.ogg 到你的工作目錄。
+
+
+1.1 在工作目錄建立一個新的 HTML 文件，初始內容如下:
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Breakout Game</title>
+<script type="text/javascript" src="jquery.js"></script>
+<script>
+    $(function() {
+        // coding here
+
+    });
+</script>
+
+<style type="text/css">
+canvas {
+    border: 1px solid black;
+}
+</style>
+
+</head>
+<body>
+
+    <h1>Breakout</h1>
+    <canvas id="canvas" width="400" height="500">
+    </canvas>
+
+</body>
+</html>
+
+
+// 以下的程式都寫在 // coding here 之後。 
+
+1.2 取得 canvas 的 2D 繪圖物件:
+
+        // this is the same as document.getElementById('canvas');
+        var canvas = $('#canvas')[0];
+        // different browsers support different contexts. All support 2d
+        var context = canvas.getContext('2d');
+
+
+1.3 以程式繪製位於畫面下方的操作浮板:
+
+        var paddleX = 200;
+        var paddleY = 460;
+
+        var paddleWidth = 100;
+        var paddleHeight = 15;
+
+        var paddleDeltaX = 0;
+        var paddleDeltaY = 0;
+
+        function drawPaddle() {
+            context.fillRect(paddleX, paddleY, paddleWidth, paddleHeight);
+        }
+        
+        drawPaddle();
+
+
+1.4 繪製圓球的函式:
+    <Note> 為何作者將浮板與圓球的繪製程式包成函式?
+
+        var ballX = 300;
+        var ballY = 300;
+        var ballRadius = 10;
+
+        function drawBall() {
+            // Context.beginPath when you draw primitive shapes
+            context.beginPath();
+
+            // Draw arc at center ballX, ballY with radius ballRadius, 
+            // From 0 to 2xPI radians (full circle)
+            context.arc(ballX, ballY, ballRadius, 0, Math.PI * 2, true);
+
+            // Fill up the path that you just drew
+            context.fill();
+        }
+        
+        drawBall();
+
+
+1.5 磚塊區的繪製程式:
+
+        var bricksPerRow = 8;
+        var brickHeight = 20;
+        var brickWidth = canvas.width / bricksPerRow;
+
+        // Brick Layout: 1 is orange, 2 is green, 3 is gray, 0 means no brick 
+        var bricks = [ [ 1, 1, 1, 1, 1, 1, 1, 2 ], [ 1, 1, 3, 1, 0, 1, 1, 1 ],
+                [ 2, 1, 2, 1, 2, 1, 0, 1 ], [ 1, 2, 1, 1, 0, 3, 1, 1 ] ];
+
+        // iterate through the bricks array and draw each brick using drawBrick()
+        function createBricks() {
+            for (var i = 0; i < bricks.length; i++) {
+                for (var j = 0; j < bricks[i].length; j++) {
+                    drawBrick(j, i, bricks[i][j]);
+                }
+            }
+        }
+
+        // draw a single brick
+        function drawBrick(x, y, type) {
+            switch (type) { // if brick is still visible; three colors for three types of bricks
+            case 1:
+                context.fillStyle = 'orange';
+                break;
+            case 2:
+                context.fillStyle = 'rgb(100,200,100)';
+                break;
+            case 3:
+                context.fillStyle = 'rgba(50,100,50,.5)';
+                break;
+            default:
+                context.clearRect(x * brickWidth, y * brickHeight, brickWidth,
+                        brickHeight);
+                break;
+
+            }
+            if (type) {
+                //Draw rectangle with fillStyle color selected earlier
+                context.fillRect(x * brickWidth, y * brickHeight, brickWidth,
+                        brickHeight);
+                // Also draw blackish border around the brick
+                context.strokeRect(x * brickWidth + 1, y * brickHeight + 1,
+                        brickWidth - 2, brickHeight - 2);
+            }
+        }
+        
+        createBricks();
+
+
+1.6 繪製計分板:
+
+        var score = 0;
+
+        function displayScoreBoard() {
+            //Set the text font and color
+            context.fillStyle = 'rgb(50,100,50)';
+            context.font = "20px Times New Roman";
+
+            //Clear the bottom 30 pixels of the canvas
+            context.clearRect(0, canvas.height - 30, canvas.width, 30);
+            // Write Text 5 pixels from the bottom of the canvas
+            context.fillText('Score: ' + score, 10, canvas.height - 5);
+        }
+        
+        displayScoreBoard();
+
+
+
+
+2.0 保留 drawPaddle() drawBall() createBricks() displayScoreBoard() 的函式定義，
+    去除或者註解函式呼叫的那四行。
+
+
+2.1 建立動畫程式的骨架:
+    <Note>請描述一下這段程式的作法。
+
+        function animate() {
+            drawPaddle();
+            drawBall();
+        }
+
+        var gameLoop;
+        function startGame() {
+            gameLoop = setInterval(animate, 20);
+        }
+
+        function endGame() {
+            clearInterval(gameLoop);
+            context.fillText('The End!!!!', canvas.width / 2, canvas.height / 2);
+        }
+
+        startGame();
+ 
+ 
+2.2    讓球動起來
+2.2.1  加寫 下列的 moveBall() 函式。
+        var ballDeltaX;
+        var ballDeltaY;
+
+        function moveBall(){
+            ballX = ballX + ballDeltaX;
+            ballY = ballY + ballDeltaY;
+        }
+
+ 
+2.2.2  在 animate() 函式，呼叫 moveBall();
+        function animate() {
+            moveBall();
+            drawPaddle();
+            drawBall();
+        }
+
+ 
+2.2.3  在 startGame() 函式，分為設定 ballDeltaY, ballDeltaX 為 -4, -2 ;
+        function startGame() {
+            ballDeltaY = -4;
+            ballDeltaX = -2;
+            gameLoop = setInterval(animate, 20);
+        }
+ 
+ 
+2.2.4  測試一下程式。
+
+
+2.3    去除圓球的移動軌跡。在 animate() 的第一行，以 clearRect 清除整張畫布，如下:
+        function animate() {
+            context.clearRect(0,0,canvas.width,canvas.height);
+            moveBall();
+            drawPaddle();
+            drawBall();
+        }
+
+
+2.4    修改 moveBall()，讓球遇到上、右、左邊界時，改變行進方向；遇到下邊界時，判定遊戲結束。    
+ 
+                function moveBall(){
+                    // First check if we will bump into something
+
+                    // If top of the ball touches the top then reverse Y direction
+                    if (ballY + ballDeltaY - ballRadius < 0){
+                        ballDeltaY = -ballDeltaY;
+                    }
+
+                    // If the bottom of the ball touches the bottom of the screen then end the game
+                    if (ballY + ballDeltaY + ballRadius > canvas.height){
+                        endGame();
+                    }
+                    // If side of ball touches either side of the wall then reverse X direction
+                        //left of ball moves too far left
+                    if ((ballX + ballDeltaX - ballRadius < 0) ||
+                        //or right side of ball moves too far right
+                    (ballX + ballDeltaX + ballRadius > canvas.width)){  
+                        ballDeltaX = -ballDeltaX;
+                    }
+
+                    // Move the ball
+                    ballX = ballX + ballDeltaX;
+                    ballY = ballY + ballDeltaY;
+                }
+ 
+ 
+2.5    移動操作浮板。
+2.5.1  修改 startGame()，寫作 keydown 與 keyup 事件處理函式，
+    利用事件處理函式將左、右、無三種狀態值，記錄於 paddleMove 變數。
+ 
+        var paddleMove;
+        function startGame(){
+            ballDeltaY = -4;
+            ballDeltaX = -2;
+            paddleMove = 'NONE';
+            paddleDeltaX = 0;
+
+            // call the animate() function every 200ms until clearInterval(gameLoop) is called
+            gameLoop = setInterval(animate,20);
+
+            // Start Tracking Keystokes
+            $(document).keydown(function(evt) {
+                if (evt.keyCode == 39) {
+                    paddleMove = 'RIGHT';
+                } else if (evt.keyCode == 37){
+                    paddleMove = 'LEFT';
+                }
+            });         
+
+            $(document).keyup(function(evt) {
+                if (evt.keyCode == 39) {
+                    paddleMove = 'NONE';
+                } else if (evt.keyCode == 37){
+                    paddleMove = 'NONE';
+                }
+            }); 
+        }
+ 
+ 
+2.5.2   加寫 movePaddle() 函式
+
+                var paddleDeltaX;
+                var paddleSpeedX = 10;
+
+                function movePaddle(){
+                    if (paddleMove == 'LEFT'){
+                        paddleDeltaX = -paddleSpeedX;
+                    } else if (paddleMove == 'RIGHT'){
+                        paddleDeltaX = paddleSpeedX;
+                    } else {
+                        paddleDeltaX = 0;
+                    }
+                    // If paddle reaches the ends, then don't let it move 
+                    if (paddleX + paddleDeltaX < 0 || paddleX + paddleDeltaX +paddleWidth >canvas.width){
+                        paddleDeltaX = 0; 
+                    }
+                    paddleX = paddleX + paddleDeltaX;
+                }
+
+
+2.5.3   在 animate() 函式呼叫 movePaddle():
+        function animate() {
+            context.clearRect(0,0,canvas.width,canvas.height);
+            moveBall();
+            movePaddle();
+            drawPaddle();
+            drawBall();
+        }
+
+
+2.6 修改 moveBall()，偵測圓球碰撞到活動浮板時要改變反彈方向:
+                function moveBall(){
+                    // First check if we will bump into something
+
+                    // If top of the ball touches the top then reverse Y direction
+                    if (ballY + ballDeltaY - ballRadius < 0){
+                        ballDeltaY = -ballDeltaY;
+                    }
+
+                    // If the bottom of the ball touches the bottom of the screen then end the game
+                    if (ballY + ballDeltaY + ballRadius > canvas.height){
+                        endGame();
+                    }
+                    // If side of ball touches either side of the wall then reverse X direction
+                        //left of ball moves too far left
+                    if ((ballX + ballDeltaX - ballRadius < 0) ||
+                        //or right side of ball moves too far right
+                    (ballX + ballDeltaX + ballRadius > canvas.width)){  
+                        ballDeltaX = -ballDeltaX;
+                    }
+
+                    // if bottom of ball reaches the top of paddle,
+                    if (ballY + ballDeltaY + ballRadius >= paddleY){
+                        // and it is positioned between the two ends of the paddle (is on top)
+                        if (ballX + ballDeltaX >= paddleX && 
+                            ballX + ballDeltaX <= paddleX + paddleWidth){
+                            ballDeltaY = - ballDeltaY;
+                        }
+                    }
+
+                    // Move the ball
+                    ballX = ballX + ballDeltaX;
+                    ballY = ballY + ballDeltaY;
+                }
+
+
+
+
+3.1 重新畫出磚塊區與計分板。在 animate() 函式，呼叫 createBricks() 與 displayScoreBoard()，如下:
+
+        function animate() {
+            context.clearRect(0,0,canvas.width,canvas.height);
+            createBricks();
+            displayScoreBoard();
+            moveBall();
+            movePaddle();
+            drawPaddle();
+            drawBall();
+        }
+
+
+3.2 球體與磚塊的碰撞偵測以及計分程式。
+
+3.2.1 寫作球體與磚塊的碰撞偵測程式與計分程式:
+        function explodeBrick(i,j){
+            // First weaken the brick (0 means brick has gone)
+            bricks[i][j] --;
+
+            if (bricks[i][j]>0){ 
+                // The brick is weakened but still around. Give a single point.
+                score++;
+            } else {
+                // give player an extra point when the brick disappears
+                score += 2;     
+                //breakingSound.play();
+            }
+        }
+        
+        function collisionXWithBricks(){
+            var bumpedX = false;    
+            for (var i=0; i < bricks.length; i++) {
+                for (var j=0; j < bricks[i].length; j++) {
+                    if (bricks[i][j]){ // if brick is still visible
+                        var brickX = j * brickWidth;
+                        var brickY = i * brickHeight;
+                        if (
+                            // barely touching from left
+                            ((ballX + ballDeltaX + ballRadius >= brickX) &&
+                            (ballX + ballRadius <= brickX))
+                            ||
+                            // barely touching from right
+                            ((ballX + ballDeltaX - ballRadius<= brickX + brickWidth)&&
+                            (ballX - ballRadius >= brickX + brickWidth))
+                            ){      
+                            if ((ballY + ballDeltaY -ballRadius<= brickY + brickHeight) &&
+                                (ballY + ballDeltaY + ballRadius >= brickY)){                                                   
+                                // weaken brick and increase score
+                                explodeBrick(i,j);
+
+                                bumpedX = true;
+                            }
+                        }
+                    }
+                }
+            }
+                return bumpedX;
+        }               
+
+        function collisionYWithBricks(){
+
+            var bumpedY = false;
+            for (var i=0; i < bricks.length; i++) {
+                for (var j=0; j < bricks[i].length; j++) {
+                    if (bricks[i][j]){ // if brick is still visible
+                        var brickX = j * brickWidth;
+                        var brickY = i * brickHeight;
+                        if (
+                            // barely touching from below
+                            ((ballY + ballDeltaY - ballRadius <= brickY + brickHeight) && 
+                            (ballY - ballRadius >= brickY + brickHeight))
+                            ||
+                            // barely touching from above
+                            ((ballY + ballDeltaY + ballRadius >= brickY) &&
+                            (ballY + ballRadius <= brickY ))){
+                            if (ballX + ballDeltaX + ballRadius >= brickX && 
+                                ballX + ballDeltaX - ballRadius<= brickX + brickWidth){                                     
+                                // weaken brick and increase score
+                                explodeBrick(i,j);                          
+                                bumpedY = true;
+                            }                       
+                        }
+                    }
+                }
+            }
+            return bumpedY;
+        }
+
+
+3.2.1 修改 moveBall()，圓球向上碰撞到磚塊時，也要改變行進方向:
+  
+        function moveBall(){
+            // First check if we will bump into something
+
+            // If top of the ball touches the top then reverse Y direction
+            if (ballY + ballDeltaY - ballRadius < 0 
+                // or if ball collides in Y direction with bricks
+                || collisionYWithBricks()){
+                ballDeltaY = -ballDeltaY;
+                // bouncingSound.play();
+            }
+
+            // If the bottom of the ball touches the bottom of the screen then end the game
+            if (ballY + ballDeltaY + ballRadius > canvas.height){
+                endGame();
+            }
+            // If side of ball touches either side of the wall then reverse X direction
+                //left of ball moves too far left
+            if ((ballX + ballDeltaX - ballRadius < 0) ||
+                //or right side of ball moves too far right
+            (ballX + ballDeltaX + ballRadius > canvas.width)
+            // or if ball collides in Y direction with bricks
+            || collisionXWithBricks()
+            ){  
+                ballDeltaX = -ballDeltaX;
+                //bouncingSound.play();
+            }
+
+            // if bottom of ball reaches the top of paddle,
+            if (ballY + ballDeltaY + ballRadius >= paddleY){
+                // and it is positioned between the two ends of the paddle (is on top)
+                if (ballX + ballDeltaX >= paddleX && 
+                    ballX + ballDeltaX <= paddleX + paddleWidth){
+                    ballDeltaY = - ballDeltaY;
+                    //bouncingSound.play();
+                }
+            }
+
+            // Move the ball
+            ballX = ballX + ballDeltaX;
+            ballY = ballY + ballDeltaY;
+       }
+
+
+3.3 加入音效。
+
+3.3.1   在 moveBall() 函式的「前」一行，寫作:
+        var bouncingSound = new Audio("bounce.ogg");
+        var breakingSound = new Audio("break.ogg");
+
+3.3.2   將 moveBall() 函式裡頭的 bouncingSound.play() 與 breakingSound.play() 註解都去除掉。
+
