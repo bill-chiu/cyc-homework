@@ -160,8 +160,11 @@
 
                 //清除canvas內的內容
                 context.clearRect(0, 0, canvas.width, canvas.height);
+                createBricks();
+                displayScoreBoard();
                 drawPaddle();
                 drawBall();
+                movePaddle();
                 moveBall();
             }
             function endGame() {
@@ -191,7 +194,14 @@
                     //左右位移交換
                     ballDeltaX = -ballDeltaX;
                 }
-
+                //如果球在板子旁
+                if (ballY + ballDeltaY + ballRadius >= paddleY) {
+                    //且在板子的寬度內
+                    if (ballX + ballDeltaX >= paddleX &&
+                        ballX + ballDeltaX <= paddleX + paddleWidth) {
+                        ballDeltaY = - ballDeltaY;
+                    }
+                }
                 //球位置等於原位置加位移
                 ballX = ballX + ballDeltaX;
                 ballY = ballY + ballDeltaY;
@@ -234,14 +244,17 @@
 
             //板子移動的函式
             function movePaddle() {
+
+                //如果paddleMove狀態向左
                 if (paddleMove == 'LEFT') {
                     paddleDeltaX = -paddleSpeedX;
+                    //paddleDeltaX變成負的
                 } else if (paddleMove == 'RIGHT') {
                     paddleDeltaX = paddleSpeedX;
                 } else {
                     paddleDeltaX = 0;
                 }
-                // If paddle reaches the ends, then don't let it move 
+                //如果板子超過canvas範圍，停止位移
                 if (paddleX + paddleDeltaX < 0 || paddleX + paddleDeltaX + paddleWidth > canvas.width) {
                     paddleDeltaX = 0;
                 }
