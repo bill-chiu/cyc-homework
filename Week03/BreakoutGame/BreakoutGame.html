@@ -55,19 +55,6 @@
             }
 
 
-            function drawItem() {
-                // Context.beginPath when you draw primitive shapes
-                context.beginPath();
-
-                // Draw arc at center ballX, ballY with radius ballRadius, 
-                // From 0 to 2xPI radians (full circle)
-                
-
-                context.arc(itemX, itemY, itemRadius, 0, Math.PI * 2, true);
-
-                // Fill up the path that you just drew
-                context.fill();
-            }
 
 
 
@@ -106,6 +93,8 @@
                 for (var i = 0; i < bricks.length; i++) {
                     for (var j = 0; j < bricks[i].length; j++) {
                         drawBrick(j, i, bricks[i][j]);
+
+               
                     }
                 }
             }
@@ -145,6 +134,14 @@
             }
 
 
+            function drawItem() {
+                                   
+                
+               context.arc(itemX, itemY, itemRadius, 0, Math.PI * 2, true);
+
+                //填滿您剛才繪製的路徑
+                context.fill();
+            }
             //計分表
             var score = 0;
 
@@ -283,11 +280,16 @@
                 bricks[i][j]--;
                 //這個磚塊變弱了 但還沒破壞
                 if (bricks[i][j] > 0) {
-                    console.log(bricks[j]);
+
                     score++;
                     //破壞了 得分
                 } else {
 
+
+                    itemX = (j+0.5) * (brickWidth);
+                    itemY = (i+0.5) * (brickHeight);
+
+                    console.log();
                     
 
                  
