@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Breakout Game</title>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script>
+        $(function () {
+
+            // this is the same as document.getElementById('canvas');
+            var canvas = $('#canvas')[0];
+            // different browsers support different contexts. All support 2d
+            var context = canvas.getContext('2d');
+
+            var paddleX = 200;
+            var paddleY = 460;
+
+            var paddleWidth = 100;
+            var paddleHeight = 15;
+
+            var paddleDeltaX = 0;
+            var paddleDeltaY = 0;
+
+            function drawPaddle() {
+                context.fillRect(paddleX, paddleY, paddleWidth, paddleHeight);
+            }
+
+            drawPaddle();
+
+
+            var ballX = 300;
+            var ballY = 300;
+            var ballRadius = 10;
+
+            var itemX = 100;
+            var itemY = 100;
+            var itemRadius = 5;
+
+            function drawBall() {
+                // Context.beginPath when you draw primitive shapes
+                context.beginPath();
+
+                // Draw arc at center ballX, ballY with radius ballRadius, 
+                // From 0 to 2xPI radians (full circle)
+                context.arc(ballX, ballY, ballRadius, 0, Math.PI * 2, true);
+
+                // Fill up the path that you just drew
+                context.fill();
+            }
+
+            drawBall();
+
+            function drawItem() {
+                // Context.beginPath when you draw primitive shapes
+                context.beginPath();
+
+                // Draw arc at center ballX, ballY with radius ballRadius, 
+                // From 0 to 2xPI radians (full circle)
+                context.arc(itemX, itemY, itemRadius, 0, Math.PI * 2, true);
+
+                // Fill up the path that you just drew
+                context.fill();
+            }
+
+            drawItem();
+
+            brickrandow = Math.ceil(Math.random() * 4);
+     
+            var bricksa = [];
+            var bricks = [];
+
+            for (var j = 0; j< 4; j++) {
+             
+                for (var i = 0; i < 8; i++) {
+                    brickrandow = Math.ceil(Math.random() * 4);
+
+                
+                    bricksa.push(brickrandow);
+                 
+                }
+                bricks.push(bricksa);
+                bricksa = [];
+                console.log(bricks);
+          
+             
+           
+            }
+
+
+
+            console.log(bricksa);
+            var bricksPerRow = 8;
+            var brickHeight = 20;
+            var brickWidth = canvas.width / bricksPerRow;
+
+            // Brick Layout: 1 is orange, 2 is green, 3 is gray, 0 means no brick 
+        
+            // iterate through the bricks array and draw each brick using drawBrick()
+            function createBricks() {
+                for (var i = 0; i < bricks.length; i++) {
+                    for (var j = 0; j < bricks[i].length; j++) {
+                        drawBrick(j, i, bricks[i][j]);
+                    }
+                }
+            }
+
+            // draw a single brick
+            function drawBrick(x, y, type) {
+
+
+                switch (type) {
+                    // if brick is still visible; three colors for three types of bricks
+                    case 1:
+                        context.fillStyle = 'orange';
+                        break;
+                    case 2:
+                        context.fillStyle = 'red';
+                        break;
+                    case 3:
+                        context.fillStyle = 'green';
+                        break;
+                    case 4:
+                        context.fillStyle = '#66ccff';
+                        break;
+                    default:
+                        context.clearRect(x * brickWidth, y * brickHeight, brickWidth,
+                            brickHeight);
+                        break;
+
+                }
+                if (type) {
+                    //Draw rectangle with fillStyle color selected earlier
+                    context.fillRect(x * brickWidth, y * brickHeight, brickWidth,
+                        brickHeight);
+                    // Also draw blackish border around the brick
+                    context.strokeRect(x * brickWidth + 1, y * brickHeight + 1,
+                        brickWidth - 2, brickHeight - 2);
+                }
+            }
+
+            createBricks();
+
+
+        });
+    </script>
+
+    <style type="text/css">
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Breakout</h1>
+    <canvas id="canvas" width="400" height="500">
+    </canvas>
+
+</body>
+
+</html>
