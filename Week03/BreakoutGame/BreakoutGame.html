@@ -22,11 +22,12 @@
             var paddleDeltaX = 0;
             var paddleDeltaY = 0;
 
+            //畫板子
             function drawPaddle() {
                 context.fillRect(paddleX, paddleY, paddleWidth, paddleHeight);
             }
 
-            // drawPaddle();
+
 
 
             var ballX = 300;
@@ -36,7 +37,8 @@
             var itemX = 100;
             var itemY = 100;
             var itemRadius = 5;
-            //
+
+            //畫球
             function drawBall() {
                 // Context.beginPath when you draw primitive shapes
                 context.beginPath();
@@ -49,7 +51,6 @@
                 context.fill();
             }
 
-            // drawBall();
 
             function drawItem() {
                 // Context.beginPath when you draw primitive shapes
@@ -63,7 +64,7 @@
                 context.fill();
             }
 
-            // drawItem();
+
 
 
             //設立隨機磚塊
@@ -88,7 +89,7 @@
 
 
 
-            
+
             var bricksPerRow = 8;
             var brickHeight = 20;
             var brickWidth = canvas.width / bricksPerRow;
@@ -104,7 +105,7 @@
                 }
             }
 
-            // draw a single brick
+            //畫磚塊
             function drawBrick(x, y, type) {
 
 
@@ -138,7 +139,7 @@
                 }
             }
 
-            // createBricks();
+
             //計分表
             var score = 0;
 
@@ -156,19 +157,13 @@
             // displayScoreBoard();
             //動畫事件
             function animate() {
-                context.clearRect(0,0,canvas.width,canvas.height);
+
+                //清除canvas內的內容
+                context.clearRect(0, 0, canvas.width, canvas.height);
                 drawPaddle();
                 drawBall();
                 moveBall();
             }
-
-            var gameLoop;
-            function startGame() {
-            ballDeltaY = -4;
-            ballDeltaX = -2;
-            gameLoop = setInterval(animate, 20);
-        }
-
             function endGame() {
                 clearInterval(gameLoop);
                 context.fillText('The End!!!!', canvas.width / 2, canvas.height / 2);
@@ -179,28 +174,81 @@
             var ballDeltaX;
             var ballDeltaY;
 
-            function moveBall(){         
+            function moveBall() {
 
-                    //初始高度＋位移－大小超過頂部
-                    if (ballY + ballDeltaY - ballRadius < 0){
-                        //位移交換
-                        ballDeltaY = -ballDeltaY;
-                    }
-
-                    //超過底部
-                    if (ballY + ballDeltaY + ballRadius > canvas.height){
-                        endGame();
-                    }
-                    //如果碰到左半或是右半
-                    if ((ballX + ballDeltaX - ballRadius < 0) ||(ballX + ballDeltaX + ballRadius > canvas.width)){  
-                        //左右位移交換
-                        ballDeltaX = -ballDeltaX;
-                    }
-
-                    //球位置等於原位置加位移
-                    ballX = ballX + ballDeltaX;
-                    ballY = ballY + ballDeltaY;
+                //初始高度＋位移－大小超過頂部
+                if (ballY + ballDeltaY - ballRadius < 0) {
+                    //位移交換
+                    ballDeltaY = -ballDeltaY;
                 }
+
+                //超過底部
+                if (ballY + ballDeltaY + ballRadius > canvas.height) {
+                    endGame();
+                }
+                //如果碰到左半或是右半
+                if ((ballX + ballDeltaX - ballRadius < 0) || (ballX + ballDeltaX + ballRadius > canvas.width)) {
+                    //左右位移交換
+                    ballDeltaX = -ballDeltaX;
+                }
+
+                //球位置等於原位置加位移
+                ballX = ballX + ballDeltaX;
+                ballY = ballY + ballDeltaY;
+            }
+
+            var gameLoop;
+            var paddleMove;
+            function startGame() {
+                ballDeltaY = -4;
+                ballDeltaX = -2;
+                paddleMove = 'NONE';
+                paddleDeltaX = 0;
+                //每0.02秒執行一次animate
+                gameLoop = setInterval(animate, 20);
+
+                //啟用鍵盤追蹤按下事件
+                $(document).keydown(function (evt) {
+                    //方向鍵：左﹐上﹐右﹐下分別是event.keyCode值：37﹐38﹐39﹐40
+                    if (evt.keyCode == 39) {
+                        paddleMove = 'RIGHT';
+                    } else if (evt.keyCode == 37) {
+                        paddleMove = 'LEFT';
+                    }
+                });
+                //啟用鍵盤追蹤放開事件
+                $(document).keyup(function (evt) {
+                    if (evt.keyCode == 39) {
+                        paddleMove = 'NONE';
+                    } else if (evt.keyCode == 37) {
+                        paddleMove = 'NONE';
+                    }
+                });
+            }
+
+            //板子位移
+            var paddleDeltaX;
+            //板子速度
+            var paddleSpeedX = 10;
+
+
+            //板子移動的函式
+            function movePaddle() {
+                if (paddleMove == 'LEFT') {
+                    paddleDeltaX = -paddleSpeedX;
+                } else if (paddleMove == 'RIGHT') {
+                    paddleDeltaX = paddleSpeedX;
+                } else {
+                    paddleDeltaX = 0;
+                }
+                // If paddle reaches the ends, then don't let it move 
+                if (paddleX + paddleDeltaX < 0 || paddleX + paddleDeltaX + paddleWidth > canvas.width) {
+                    paddleDeltaX = 0;
+                }
+                paddleX = paddleX + paddleDeltaX;
+            }
+
+
 
         });
 
