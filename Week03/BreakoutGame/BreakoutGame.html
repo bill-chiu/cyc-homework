@@ -14,10 +14,10 @@
             var context = canvas.getContext('2d');
 
             var paddleX = 200;
-            var paddleY = 460;
+            var paddleY = 400;
 
             var paddleWidth = 100;
-            var paddleHeight = 15;
+            var paddleHeight = 10;
 
             var paddleDeltaX = 0;
 
@@ -29,7 +29,7 @@
             }
 
 
-            var color=1;
+            var color = 1;
 
             var ballX = 300;
             var ballY = 300;
@@ -39,7 +39,7 @@
 
             var itemY = 100;
             var itemDeltaY;
-            var itemRadius = 5;
+            var itemRadius = 10;
 
             //畫球
             function drawBall() {
@@ -281,6 +281,10 @@
                     paddleDeltaX = 0;
                 }
                 paddleX = paddleX + paddleDeltaX;
+
+
+                
+
             }
 
             function explodeBrick(i, j) {
@@ -296,7 +300,7 @@
 
                     itemX = (j + 0.5) * (brickWidth);
                     itemY = (i + 0.5) * (brickHeight);
-                  
+
                     color = Math.ceil(Math.random() * 4);
 
 
@@ -335,7 +339,41 @@
                 }
                 return bumpedX;
             }
+            function explodeItem() {
 
+                color=0;
+            }
+            function collisionWithitem() {
+                if (
+                    ////如果球碰到磚塊上方
+                    ((paddleY + paddleDeltaY + paddleHeight <= itemY) &&
+                        (paddleY + paddleHeight <= itemY))) {
+                    if (paddleX + paddleDeltaX + paddleWidth >= itemX - itemRadius &&
+                        paddleX + paddleDeltaX - paddleWidth <= itemX + itemRadius ){
+                            itemX=1000;
+                            itemY=1000;
+                            if(color==1){
+                           ballRadius=ballRadius*2;
+                            console.log(ballRadius);
+                        }
+                        if(color==2){
+                           ballDeltaX=ballDeltaX*2;
+                           ballDeltaY=ballDeltaY*2;
+                            console.log(ballDeltaX);
+                            console.log(ballDeltaY);
+                        }
+                        if(color==3 && ballRadius>5){
+                           ballRadius=ballRadius/2;
+                            console.log(ballRadius);
+                        }
+                        if(color==4 ){
+                            paddleWidth=paddleWidth/2;                         
+                            console.log(paddleWidth);
+                      
+                        }
+                    }
+                }
+            }
             function collisionYWithBricks() {
 
                 var bumpedY = false;
@@ -377,6 +415,7 @@
                 moveBall();
                 drawItem(color);
                 moveitem();
+                collisionWithitem();
             }
 
         });
