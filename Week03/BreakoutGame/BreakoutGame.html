@@ -20,6 +20,7 @@
             var paddleHeight = 15;
 
             var paddleDeltaX = 0;
+
             var paddleDeltaY = 0;
 
             //畫板子
@@ -35,7 +36,9 @@
             var ballRadius = 10;
 
             var itemX = 100;
+
             var itemY = 100;
+            var itemDeltaY;
             var itemRadius = 5;
 
             //畫球
@@ -58,6 +61,8 @@
 
                 // Draw arc at center ballX, ballY with radius ballRadius, 
                 // From 0 to 2xPI radians (full circle)
+                
+
                 context.arc(itemX, itemY, itemRadius, 0, Math.PI * 2, true);
 
                 // Fill up the path that you just drew
@@ -166,6 +171,8 @@
                 drawBall();
                 movePaddle();
                 moveBall();
+                drawItem();
+                moveitem();
             }
             function endGame() {
                 clearInterval(gameLoop);
@@ -174,13 +181,18 @@
 
             startGame();
 
+            function moveitem() {
+         
+                itemY = itemY + itemDeltaY;
+
+            }
             var ballDeltaX;
             var ballDeltaY;
 
             function moveBall() {
 
                 //初始高度＋位移－大小超過頂部
-                if (ballY + ballDeltaY - ballRadius < 0) {
+                if (ballY + ballDeltaY - ballRadius < 0 || collisionYWithBricks()) {
                     //位移交換
                     ballDeltaY = -ballDeltaY;
                 }
@@ -190,10 +202,12 @@
                     endGame();
                 }
                 //如果碰到左半或是右半
-                if ((ballX + ballDeltaX - ballRadius < 0) || (ballX + ballDeltaX + ballRadius > canvas.width)) {
+                if ((ballX + ballDeltaX - ballRadius < 0) || (ballX + ballDeltaX + ballRadius > canvas.width) || collisionXWithBricks()) {
+
                     //左右位移交換
                     ballDeltaX = -ballDeltaX;
                 }
+
                 //如果球在板子旁
                 if (ballY + ballDeltaY + ballRadius >= paddleY) {
                     //且在板子的寬度內
@@ -202,6 +216,8 @@
                         ballDeltaY = - ballDeltaY;
                     }
                 }
+
+
                 //球位置等於原位置加位移
                 ballX = ballX + ballDeltaX;
                 ballY = ballY + ballDeltaY;
@@ -214,6 +230,7 @@
                 ballDeltaX = -2;
                 paddleMove = 'NONE';
                 paddleDeltaX = 0;
+                itemDeltaY = 2;
                 //每0.02秒執行一次animate
                 gameLoop = setInterval(animate, 20);
 
@@ -261,6 +278,85 @@
                 paddleX = paddleX + paddleDeltaX;
             }
 
+            function explodeBrick(i, j) {
+
+                bricks[i][j]--;
+                //這個磚塊變弱了 但還沒破壞
+                if (bricks[i][j] > 0) {
+                    console.log(bricks[j]);
+                    score++;
+                    //破壞了 得分
+                } else {
+
+                    
+
+                 
+                    drawItem();
+                    score += 2;
+                    //breakingSound.play();
+                }
+            }
+            //碰撞磚塊X
+            function collisionXWithBricks() {
+                var bumpedX = false;
+                for (var i = 0; i < bricks.length; i++) {
+                    for (var j = 0; j < bricks[i].length; j++) {
+                        if (bricks[i][j]) {
+                            //如果磚塊可見
+                            var brickX = j * brickWidth;
+                            var brickY = i * brickHeight;
+                            if (
+                                //如果球碰到磚塊左半邊
+                                ((ballX + ballDeltaX + ballRadius >= brickX) &&
+                                    (ballX + ballRadius <= brickX))
+                                ||
+                                //如果球碰到磚塊右半邊
+                                ((ballX + ballDeltaX - ballRadius <= brickX + brickWidth) &&
+                                    (ballX - ballRadius >= brickX + brickWidth))
+                            ) {
+                                if ((ballY + ballDeltaY - ballRadius <= brickY + brickHeight) &&
+                                    (ballY + ballDeltaY + ballRadius >= brickY)) {
+                                    //磚塊等級-1
+                                    explodeBrick(i, j);
+
+                                    bumpedX = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                return bumpedX;
+            }
+
+            function collisionYWithBricks() {
+
+                var bumpedY = false;
+                for (var i = 0; i < bricks.length; i++) {
+                    for (var j = 0; j < bricks[i].length; j++) {
+                        //如果磚塊可見
+                        if (bricks[i][j]) {
+                            var brickX = j * brickWidth;
+                            var brickY = i * brickHeight;
+                            if (
+                                //如果球碰到磚塊底部
+                                ((ballY + ballDeltaY - ballRadius <= brickY + brickHeight) &&
+                                    (ballY - ballRadius >= brickY + brickHeight))
+                                ||
+                                ////如果球碰到磚塊上方
+                                ((ballY + ballDeltaY + ballRadius >= brickY) &&
+                                    (ballY + ballRadius <= brickY))) {
+                                if (ballX + ballDeltaX + ballRadius >= brickX &&
+                                    ballX + ballDeltaX - ballRadius <= brickX + brickWidth) {
+                                    //磚塊等級-1
+                                    explodeBrick(i, j);
+                                    bumpedY = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                return bumpedY;
+            }
 
 
         });
