@@ -29,7 +29,7 @@
             }
 
 
-
+            var color=1;
 
             var ballX = 300;
             var ballY = 300;
@@ -94,17 +94,44 @@
                     for (var j = 0; j < bricks[i].length; j++) {
                         drawBrick(j, i, bricks[i][j]);
 
-               
+
                     }
                 }
             }
+            function drawItem(itemcolor) {
 
+                switch (itemcolor) {
+
+                    case 1:
+                        context.fillStyle = 'orange';
+                        break;
+                    case 2:
+                        context.fillStyle = 'red';
+                        break;
+                    case 3:
+                        context.fillStyle = 'green';
+                        break;
+                    case 4:
+                        context.fillStyle = '#66ccff';
+                        break;
+                }
+
+
+                context.beginPath();
+
+                context.arc(itemX, itemY, itemRadius, 0, Math.PI * 2, true);
+                //填滿您剛才繪製的路徑
+                context.fill();
+                context.closePath();
+
+
+            }
             //畫磚塊
             function drawBrick(x, y, type) {
 
 
                 switch (type) {
-                    // if brick is still visible; three colors for three types of bricks
+                    //如果磚塊還在 分幾個種類
                     case 1:
                         context.fillStyle = 'orange';
                         break;
@@ -134,14 +161,7 @@
             }
 
 
-            function drawItem() {
-                                   
-                
-               context.arc(itemX, itemY, itemRadius, 0, Math.PI * 2, true);
 
-                //填滿您剛才繪製的路徑
-                context.fill();
-            }
             //計分表
             var score = 0;
 
@@ -158,19 +178,7 @@
 
             // displayScoreBoard();
             //動畫事件
-            function animate() {
 
-                //清除canvas內的內容
-                context.clearRect(0, 0, canvas.width, canvas.height);
-                createBricks();
-                displayScoreBoard();
-                drawPaddle();
-                drawBall();
-                movePaddle();
-                moveBall();
-                drawItem();
-                moveitem();
-            }
             function endGame() {
                 clearInterval(gameLoop);
                 context.fillText('The End!!!!', canvas.width / 2, canvas.height / 2);
@@ -179,7 +187,7 @@
             startGame();
 
             function moveitem() {
-         
+
                 itemY = itemY + itemDeltaY;
 
             }
@@ -286,14 +294,12 @@
                 } else {
 
 
-                    itemX = (j+0.5) * (brickWidth);
-                    itemY = (i+0.5) * (brickHeight);
+                    itemX = (j + 0.5) * (brickWidth);
+                    itemY = (i + 0.5) * (brickHeight);
+                  
+                    color = Math.ceil(Math.random() * 4);
 
-                    console.log();
-                    
 
-                 
-                    drawItem();
                     score += 2;
                     //breakingSound.play();
                 }
@@ -359,7 +365,19 @@
                 }
                 return bumpedY;
             }
+            function animate() {
 
+                //清除canvas內的內容
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                createBricks();
+                displayScoreBoard();
+                drawPaddle();
+                drawBall();
+                movePaddle();
+                moveBall();
+                drawItem(color);
+                moveitem();
+            }
 
         });
 
