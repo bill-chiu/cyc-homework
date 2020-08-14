@@ -1,0 +1,91 @@
+Lab: 綜合演練
+
+
+1.  建立資料庫
+
+執行下列 SQL Script 以建立本次練習所需的資料庫。
+drop database labDB;
+create database labDB default character set utf8;
+use labDB;
+create table news
+(
+  newsId int auto_increment not null primary key,
+  ymd char(10),
+  title varchar(50)
+);
+insert into news (ymd, title) values 
+  ('2017-05-01', 'News A'),
+  ('2017-05-02', 'News B'),
+  ('2017-05-03', 'News C'),
+  ('2017-05-04', 'News D'),
+  ('2017-05-05', 'News E');
+select * from news;
+
+
+
+
+2. Node.js 設定
+
+2.1 下載並安裝 Node.js 
+    <Note>
+    https://nodejs.org 下載 LTS 版並安裝
+    如果還沒學過 Node.js，沒關係，
+    我們並沒要寫 Node.js 程式，
+    後端的 Node.js 已寫好，
+    按照下列步驟進行即可。
+
+2.2 在 VS Code 滑鼠右鍵點按 Lab_Integrated 資料夾，
+    從快捷功能表點按 Open in Terminal 
+    在TERMINAL終端機視窗輸入下列指令以安裝/更新本程式所需的模組:
+
+npm install express
+npm install body-parser
+npm install express-session
+npm install ejs
+npm install mysql
+
+
+  <Note>
+  Lab_Integrated 資料夾會多出一個 node_modules 子資料夾
+  內含上述 express、body-parser 等模組
+
+
+
+
+3.  檢視系統運作狀況
+
+
+3.1 請先將 Apache 服務停下來以免埠號 80 衝突
+
+
+3.2 確認 MySQL 運作中
+
+
+3.3	輸入下列指令以啟動 Web:
+node app.js
+
+
+3.4 以瀏覽器連接 http://localhost
+	試用其中的增查修刪功能
+
+
+
+4.	練習與任務
+
+4.1 檢視 public\index.html 的內容
+    特別是其中 AJAX 程式
+
+4.2 聽一下講師導覽 app.js 的程式，
+    特別是前端在送出 post,get,put,delete HTTP 請求時
+    功能路徑與資料格式
+
+4.3 全選 public\index_0.html 內容，
+    貼入 public\index.html
+
+    <Note>
+    index_0.html 的程式內容已將 AJAX 與畫面更新程式都去掉了
+    ==> 等於 index.html 前端的程式幾乎都歸零了
+
+
+4.4 完成步驟 3.4 使用過的功能(新增、條列、編輯、刪除)。
+
