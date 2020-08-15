@@ -169,8 +169,10 @@
                 newsList = JSON.parse(e);
                 refreshUI();
             })
-
+            //刷新畫面
             function refreshUI() {
+
+                //清空剛開始的內容
                 $("#latestNews").empty();
                 for (let i = 0; i < newsList.length; i++) {
                     var newsItem = newsList[i];
@@ -182,18 +184,21 @@
                     $li.appendTo("#latestNews");
                 }
             }
-
+            //按下按鈕後開啟對話盒子
             $("#newItem").on("click", function () {
                 $("#newsModal").modal({ backdrop: "static" });
 
             })
-
+            //點擊確認隱藏對話盒
             $("#okButton").on("click", function () {
                 $("#newsModal").modal("hide");
 
                 let datainserver = {
-                    title: "test1",
-                    ymd: "ymd value"
+                    //輸入value
+                    title:$("#titleTextBox").prop("value"),
+
+                    //因為太常使用所以直接獨立.val的用法 功能與上面相同
+                    ymd:$("#ymdTextBox").val()
                 }
                 alert(JSON.stringify(datainserver));
 
