@@ -172,7 +172,8 @@
                 var $li = $("<li></li>")
                     .text(liText)
                     .addClass("list-group-item");
-                $("#latestNews").append($li);
+                $li.appendTo("#latestNews");
+                // $("#latestNews").append($li);
             }
 
 
