@@ -183,10 +183,15 @@
                 }
             }
 
-            $("#newItem").on("click",function(){
-                $("#newsModal").modal({backdrop:"static"});
+            $("#newItem").on("click", function () {
+                $("#newsModal").modal({ backdrop: "static" });
+
             })
-        
+
+            $("#okButton").on("click", function () {
+                $("#newsModal").modal("hide");
+            })
+
         })  // end of init.
 
     </script>
