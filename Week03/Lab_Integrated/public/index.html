@@ -190,6 +190,14 @@
 
             $("#okButton").on("click", function () {
                 $("#newsModal").modal("hide");
+
+                let datainserver = {
+                    title: "test1",
+                    ymd: "ymd value"
+                }
+                alert(JSON.stringify(datainserver));
+
+
             })
 
         })  // end of init.
