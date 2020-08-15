@@ -187,6 +187,13 @@
                         .append('<span class="pull-right"><button class="btn btn-info btn-xs editItem"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>&nbsp;<button class="btn btn-danger btn-xs deleteItem"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></span>');
                     $li.appendTo("#latestNews");
                 }
+                $(".editItem").on("click", function () {
+                    var eIndex = $(this).closest("li").index();
+                    $("#titleTextBox").val(newsList[eIndex].title);
+                    $("#ymdTextBox").val(newsList[eIndex].ymd);
+                    $("#newsModal").modal({ backdrop: "static" });
+
+                })
                 $(".deleteItem").on("click", function () {
                     // var index=$(this).closest("li").index();
                     var index = $(this).parent().parent().index();
