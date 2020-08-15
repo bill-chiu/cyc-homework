@@ -250,6 +250,22 @@
                         reloadfresh();
                     })
                 }
+                else {
+                    $("#newsModal").modal("hide");
+
+                        console.log(currentIndex);
+                        newsList[currentIndex].title= $("#titleTextBox").prop("value"),
+                        newsList[currentIndex].ymd= $("#ymdTextBox").val()
+             
+                    $.ajax({
+                        type: "put",
+                        url: "/home/news",                   
+                        data: newsList[currentIndex]
+                    })
+                        .then(function () {
+                            reloadfresh();
+                        })
+                }
 
 
             })
