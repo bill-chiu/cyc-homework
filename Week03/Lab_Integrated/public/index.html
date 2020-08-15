@@ -195,12 +195,18 @@
 
                 let datainserver = {
                     //輸入value
-                    title:$("#titleTextBox").prop("value"),
+                    title: $("#titleTextBox").prop("value"),
 
                     //因為太常使用所以直接獨立.val的用法 功能與上面相同
-                    ymd:$("#ymdTextBox").val()
+                    ymd: $("#ymdTextBox").val()
                 }
-                alert(JSON.stringify(datainserver));
+                $.ajax({
+                    type: "post",
+                    url: "/home/news",
+                    contentType: "application/json",
+                    data: JSON.stringify(datainserver)
+                }).then(function () {
+                })
 
 
             })
