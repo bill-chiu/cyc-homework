@@ -162,13 +162,17 @@
 
             // 練習與任務:
 
-            $.ajax({
-                type: 'get',
-                url: "/home/news"
-            }).then(function (e) {
-                newsList = JSON.parse(e);
-                refreshUI();
-            })
+            //刷新
+            function reloadfresh() {
+                $.ajax({
+                    type: 'get',
+                    url: "/home/news"
+                }).then(function (e) {
+                    newsList = JSON.parse(e);
+                    refreshUI();
+                })
+            }
+            reloadfresh();
             //刷新畫面
             function refreshUI() {
 
@@ -207,7 +211,7 @@
                     data: JSON.stringify(datainserver)
                 }).then(function () {
                 })
-
+                reloadfresh();
 
             })
 
