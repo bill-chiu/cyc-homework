@@ -69,7 +69,7 @@ if ($username != "" && $password != "") {
   if ($total_records > 0 && $_SESSION['verification '] == $verif) {
     // && $_SESSION['verification '] == $verif
     // 成功登入, 指定Session變數
-    $_SESSION['uid'] = $username;
+    $_SESSION['user'] = $username;
     $_SESSION["login_session"] = true;
     header("Location: index.php");
   } else {  // 登入失敗

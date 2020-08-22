@@ -2,10 +2,6 @@
 
 session_start();
 
-$userName = "Guest";
-if (isset($_SESSION["uid"])) {
-  $userName = $_SESSION["uid"];
-}
 
 ?>
 
@@ -27,10 +23,10 @@ if (isset($_SESSION["uid"])) {
 
     <td align="center" valign="baseline">
     <?php
-if ($userName == "Guest") {?>
+if ($_SESSION["login_session"] == false) {?>
         <a href="login.php">This page for member only.</a>
         <?php } else {?>
-          <a>hello<?= $userName ?> </a>
+          <a>hello <?= $_SESSION["user"] ?> </a>
           <?php }?>
         </td>
   </tr>

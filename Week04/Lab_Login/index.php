@@ -3,8 +3,8 @@
 session_start();
 
 $userName = "Guest";
-if (isset($_SESSION["uid"])) {
-  $userName = $_SESSION["uid"];
+if (isset($_SESSION["user"])) {
+  $userName = $_SESSION["user"];
 }
 if (isset($_POST["btnLogin"])) {
   header("Location: login.php");
@@ -34,19 +34,15 @@ if (isset($_POST["btnOut"])) {
       </tr>
       <tr>
         <td colspan="" align="center" bgcolor="#F2F2F2">
-   
-        <?php
-        if ($userName == "Guest") { ?>
-           <input type="submit" name="btnLogin" id="btnLogin" value="登入" action="login.php" />
-          
-        <?php } else { ?>
-                <input type="submit" name="btnOut" id="btnOut" value="登出" action="index.php"/>
+
+          <p>[<a href="admin.php">管理資料</a>]
+            <?php
+            if ($_SESSION["login_session"] == false) { ?>
+              [<a href="login.php">登入帳號</a>]</a>
+            <?php } else { ?>
+
+              [<a href="sign_out.php">登出帳號</a>]</p>
         <?php } ?>
-
-
-        <!-- | <a href="secret.php">會員專用頁</a></td> -->
-
-
         </td>
       </tr>
       <tr>
