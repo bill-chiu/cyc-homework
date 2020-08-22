@@ -44,6 +44,12 @@ if (isset($_POST["btnOK"])) {
 
   $verif = $_POST["Verif"];
 }
+
+
+if (isset($_POST["btnHome"])) {
+
+  header("Location: index.php");
+}
 // 檢查是否輸入使用者名稱和密碼
 if ($username != "" && $password != "") {
   // 建立MySQL的資料庫連接 
@@ -71,6 +77,7 @@ if ($username != "" && $password != "") {
     // 成功登入, 指定Session變數
     $_SESSION['user'] = $username;
     $_SESSION["login_session"] = true;
+
     header("Location: index.php");
   } else {  // 登入失敗
 
@@ -155,7 +162,7 @@ jolin / 1234
       <tr>
         <td colspan="2" align="center" bgcolor="#CCCCCC"><input type="submit" name="btnOK" id="btnOK" value="登入" />
           <input type="reset" name="btnReset" id="btnReset" value="重設" />
-          <input type="submit" name="btnHome" id="btnHome" value="回首頁" action="index.php" />
+          <input type="submit" name="btnHome" id="btnHome" value="回首頁" onclick ="index.php" />
         </td>
       </tr>
 

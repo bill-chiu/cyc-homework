@@ -6,13 +6,6 @@ $userName = "Guest";
 if (isset($_SESSION["user"])) {
   $userName = $_SESSION["user"];
 }
-if (isset($_POST["btnLogin"])) {
-  header("Location: login.php");
-}
-if (isset($_POST["btnOut"])) {
-  $userName = "Guest";
-}
-
 
 ?>
 
