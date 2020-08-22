@@ -4,32 +4,31 @@ session_start();
 
 //如果沒有驗證碼
 
+$img1 = 1;
 
 function randowverif()
 {
+
   $_SESSION['verification1 '] = rand(0, 9);
   $_SESSION['verification2 '] = rand(0, 9);
   $_SESSION['verification3 '] = rand(0, 9);
   $_SESSION['verification4 '] = rand(0, 9);
+  
+  global $img1;
+  global $img2;
+  global $img3;
+  global $img4;
   $img1 = $_SESSION['verification1 '] . '.GIF';
   $img2 = $_SESSION['verification2 '] . '.GIF';
   $img3 = $_SESSION['verification3 '] . '.GIF';
   $img4 = $_SESSION['verification4 '] . '.GIF';
 }
+
+
 if (!isset($_POST["Verif"])) {
-  $_SESSION['verification1 '] = rand(0, 9);
-  $img1 = $_SESSION['verification1 '] . '.GIF';
-  $_SESSION['verification2 '] = rand(0, 9);
-  $img2 = $_SESSION['verification2 '] . '.GIF';
-  $_SESSION['verification3 '] = rand(0, 9);
-  $img3 = $_SESSION['verification3 '] . '.GIF';
-  $_SESSION['verification4 '] = rand(0, 9);
-  $img4 = $_SESSION['verification4 '] . '.GIF';
+  randowverif();
 }
-
 $_SESSION['verification '] = $_SESSION['verification1 '] * 1000 + $_SESSION['verification2 '] * 100 + $_SESSION['verification3 '] * 10 + $_SESSION['verification4 '];
-
-
 
 $username = "";
 $password = "";
@@ -39,9 +38,7 @@ $verif = "";
 
 if (isset($_POST["btnOK"])) {
   $username = $_POST["txtUserName"];
-
   $password = $_POST["txtPassword"];
-
   $verif = $_POST["Verif"];
 }
 
@@ -54,16 +51,6 @@ if (isset($_POST["btnHome"])) {
 if ($username != "" && $password != "") {
   // 建立MySQL的資料庫連接 
   require("connDB.php");
-  // $link = mysqli_connect(
-  //   "localhost",
-  //   "root",
-  //   "",
-  //   "myschool"
-  // )
-  //   or die("無法開啟MySQL資料庫連接!<br/>");
-  // //送出UTF8編碼的MySQL指令
-  // mysqli_query($link, 'SET NAMES utf8');
-
   // 建立SQL指令字串
   $sql = "SELECT * FROM students WHERE `password`='$password' AND `username`='$username'";
 
@@ -80,15 +67,7 @@ if ($username != "" && $password != "") {
 
     header("Location: index.php");
   } else {  // 登入失敗
-
-    $_SESSION['verification1 '] = rand(0, 9);
-    $_SESSION['verification2 '] = rand(0, 9);
-    $_SESSION['verification3 '] = rand(0, 9);
-    $_SESSION['verification4 '] = rand(0, 9);
-    $img1 = $_SESSION['verification1 '] . '.GIF';
-    $img2 = $_SESSION['verification2 '] . '.GIF';
-    $img3 = $_SESSION['verification3 '] . '.GIF';
-    $img4 = $_SESSION['verification4 '] . '.GIF';
+    randowverif();
     if (!$total_records > 0) {
       echo "<center><font color='red'>";
       echo "使用者名稱或密碼錯誤!<br/>";
@@ -103,14 +82,8 @@ if ($username != "" && $password != "") {
   }
   mysqli_close($link);  // 關閉資料庫連接  
 } else {
-  $_SESSION['verification1 '] = rand(0, 9);
-  $img1 = $_SESSION['verification1 '] . '.GIF';
-  $_SESSION['verification2 '] = rand(0, 9);
-  $img2 = $_SESSION['verification2 '] . '.GIF';
-  $_SESSION['verification3 '] = rand(0, 9);
-  $img3 = $_SESSION['verification3 '] . '.GIF';
-  $_SESSION['verification4 '] = rand(0, 9);
-  $img4 = $_SESSION['verification4 '] . '.GIF';
+  randowverif();
+
   echo "<center><font color='red'>";
   echo "使用者名稱或密碼未輸入!<br/>";
   echo "</font>";
@@ -126,11 +99,11 @@ if ($username != "" && $password != "") {
 </head>
 
 <body>
-  <form id="form1" name="form1" method="post" >
+  <form id="form1" name="form1" method="post">
 
-  測試用帳密:jay / 1234
-                	
-jolin / 1234
+    測試用帳密:jay / 1234
+
+    jolin / 1234
     <table width="300" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
 
       <tr>
@@ -162,7 +135,7 @@ jolin / 1234
       <tr>
         <td colspan="2" align="center" bgcolor="#CCCCCC"><input type="submit" name="btnOK" id="btnOK" value="登入" />
           <input type="reset" name="btnReset" id="btnReset" value="重設" />
-          <input type="submit" name="btnHome" id="btnHome" value="回首頁" onclick ="index.php" />
+          <input type="submit" name="btnHome" id="btnHome" value="回首頁" onclick="index.php" />
         </td>
       </tr>
 
