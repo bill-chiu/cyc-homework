@@ -3,9 +3,6 @@
 session_start();
 
 //如果沒有驗證碼
-
-$img1 = 1;
-
 function randowverif()
 {
 
@@ -13,15 +10,7 @@ function randowverif()
   $_SESSION['verification2 '] = rand(0, 9);
   $_SESSION['verification3 '] = rand(0, 9);
   $_SESSION['verification4 '] = rand(0, 9);
-  
-  global $img1;
-  global $img2;
-  global $img3;
-  global $img4;
-  $img1 = $_SESSION['verification1 '] . '.GIF';
-  $img2 = $_SESSION['verification2 '] . '.GIF';
-  $img3 = $_SESSION['verification3 '] . '.GIF';
-  $img4 = $_SESSION['verification4 '] . '.GIF';
+
 }
 
 
@@ -34,7 +23,7 @@ $username = "";
 $password = "";
 $verif = "";
 
-//如果按下按鈕
+//如果按下確認按鈕
 
 if (isset($_POST["btnOK"])) {
   $username = $_POST["txtUserName"];
@@ -42,7 +31,7 @@ if (isset($_POST["btnOK"])) {
   $verif = $_POST["Verif"];
 }
 
-
+//如果按下回首頁
 if (isset($_POST["btnHome"])) {
 
   header("Location: index.php");
@@ -57,8 +46,8 @@ if ($username != "" && $password != "") {
   // 執行SQL查詢
   $result = mysqli_query($link, $sql);
   $total_records = mysqli_num_rows($result);
-  // 是否有查詢到使用者記錄
-
+  
+  // 是否有查詢到使用者記錄以及驗證碼是否正確
   if ($total_records > 0 && $_SESSION['verification '] == $verif) {
     // && $_SESSION['verification '] == $verif
     // 成功登入, 指定Session變數
@@ -66,12 +55,15 @@ if ($username != "" && $password != "") {
     $_SESSION["login_session"] = true;
 
     header("Location: index.php");
-  } else {  // 登入失敗
+    // 登入失敗
+  } else {  
     randowverif();
+    //如果沒有這個帳密
     if (!$total_records > 0) {
       echo "<center><font color='red'>";
       echo "使用者名稱或密碼錯誤!<br/>";
       echo "</font>";
+      //如果驗證碼比對失敗
     } else {
       echo "<center><font color='red'>";
       echo "驗證碼錯誤!<br/>";
@@ -80,7 +72,9 @@ if ($username != "" && $password != "") {
 
     $_SESSION["login_session"] = false;
   }
-  mysqli_close($link);  // 關閉資料庫連接  
+  // 關閉資料庫連接  
+  mysqli_close($link);  
+  //如果有空白
 } else {
   randowverif();
 
@@ -101,7 +95,8 @@ if ($username != "" && $password != "") {
 <body>
   <form id="form1" name="form1" method="post">
 
-    測試用帳密:jay / 1234
+    測試用帳密:<br>
+    jay / 1234 <br>
 
     jolin / 1234
     <table width="300" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
@@ -122,10 +117,10 @@ if ($username != "" && $password != "") {
       <tr>
         <td>
           <font size="2">驗證碼:</font>
-          <p><img src="<?php echo "images/" . $img1 ?>" width="75" height="75" /></p>
-          <p><img src="<?php echo "images/" . $img2 ?>" width="75" height="75" /></p>
-          <p><img src="<?php echo "images/" . $img3 ?>" width="75" height="75" /></p>
-          <p><img src="<?php echo "images/" . $img4 ?>" width="75" height="75" /></p>
+          <p><img src="<?php echo "images/" . $_SESSION['verification1 '] . '.png' ?>" />
+            <img src="<?php echo "images/" . $_SESSION['verification2 '] . '.png' ?>" />
+            <img src="<?php echo "images/" . $_SESSION['verification3 '] . '.png' ?>" />
+            <img src="<?php echo "images/" . $_SESSION['verification4 '] . '.png' ?>" /></p>
         </td>
 
         <td><input type="text" name="Verif" size="15" maxlength="10" />
