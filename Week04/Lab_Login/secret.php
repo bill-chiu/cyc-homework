@@ -1,12 +1,14 @@
 <?php
+
 session_start();
 
-if (!isset($_SESSION["uid"])) {
-    header("location:index.php");
-    exit();
+$userName = "Guest";
+if (isset($_SESSION["uid"])) {
+  $userName = $_SESSION["uid"];
 }
 
 ?>
+
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -28,7 +30,7 @@ if (!isset($_SESSION["uid"])) {
 if ($userName == "Guest") {?>
         <a href="login.php">This page for member only.</a>
         <?php } else {?>
-          <a>hello</a>
+          <a>hello<?= $userName ?> </a>
           <?php }?>
         </td>
   </tr>
