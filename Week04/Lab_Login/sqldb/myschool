@@ -1,0 +1,22 @@
+
+create database myschool;
+use myschool;
+
+
+CREATE TABLE students (
+  studentsId int AUTO_INCREMENT not null primary key,
+  name varchar(12) NOT NULL DEFAULT '',
+  address varchar(50) NOT NULL DEFAULT '',
+  username varchar(12) NOT NULL DEFAULT '',
+  password varchar(12) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+INSERT INTO students (name, address, username, password) VALUES
+('陳會安', '新北市五股區', 'hueyan', '1234'),
+('江小魚', '新北市中和區',  'smallfish', '1234'),
+('周傑倫', '台北市松山區',  'jay', '1234'),
+('蔡依玲', '台北市大安區',  'jolin', '1234'),
+('張會妹', '台北市信義區',  'chiang', '1234'),
+('張無忌', '台北市內湖區',  'chiang1234', '1234');
+
