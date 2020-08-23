@@ -100,7 +100,7 @@ if ($account != "" && $password != "") {
   <form id="form1" name="form1" method="post">
 
     測試用帳密:<br>
-    jay / 1234 <br>
+    admin / 1234 <br>
 
     jolin / 1234
     <table width="300" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
