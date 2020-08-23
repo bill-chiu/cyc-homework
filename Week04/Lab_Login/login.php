@@ -54,6 +54,7 @@ if ($account != "" && $password != "") {
     // && $_SESSION['verification '] == $verif
     // 成功登入, 指定Session變數
     $_SESSION['user'] =  $row["username"];
+    $_SESSION['id'] =  $row["studentsId"];
     $_SESSION["login_session"] = true;
 
     header("Location: index.php");

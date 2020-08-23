@@ -19,7 +19,7 @@ if (isset($_SESSION["user"])) {
 
 <body>
   <form id="form1" name="form1" method="post">
-    <table width="300" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
+    <table width="450" border="0" align="center" cellpadding="20" cellspacing="0" bgcolor="#F2F2F2">
       <tr>
         <td align="center" bgcolor="#CCCCCC">
           <font color="#FFFFFF">會員系統 - 首頁</font>
@@ -36,7 +36,14 @@ if (isset($_SESSION["user"])) {
 
               [<a href="sign_out.php">登出帳號</a>]</p>
         <?php } ?>
-        [<a href="add.php">新增帳號</a>]
+        [<a href="add.php">註冊帳號</a>]
+  
+        [<a href="edit.php?id=<?=$_SESSION['id']?>">修改帳號</a>]
+      
+
+
+
+        
         </td>
       </tr>
       <tr>

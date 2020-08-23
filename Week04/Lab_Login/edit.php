@@ -1,9 +1,23 @@
 <?php
 
-if (isset($_POST["cancelButton"])) {
-    header("location:index.php");
+
+
+
+session_start();
+
+
+if ($_SESSION["user"]== "Guest") {
+    header("location:admin.php");
     exit();
 }
+
+
+
+if (isset($_POST["btnHome"])) {
+
+    header("Location: index.php");
+    exit();
+  }
 
 if (!isset($_GET["id"])) {
     die("id not found.");
@@ -14,24 +28,29 @@ if (!is_numeric($id)) {
 }
 echo $id;
 require("connDB.php");
-if (isset($_POST["okButton"])) {
-    $lastName = $_POST["lastName"];
-    $firstName = $_POST["firstName"];
-    $cityId = $_POST["cityId"];
-    $sql = <<<multi
-    update employee set 
-    lastName='$lastName',
-    firstName='$firstName',
-    cityId=$cityId
-    where employee.employeeId=$id
-multi;
-    $result = mysqli_query($link, $sql);
+if (isset($_POST["btnOK"])) {
+    $username=$_POST["txtUserName"];
+    $userphone=$_POST["txtUserPhone"];
+    $account = $_POST["txtUserAccount"];
+    $password = $_POST["txtPassword"];
 
+    $sql = <<<multi
+    update students set 
+    username='$username',
+    phone='$userphone',
+    account='$account',
+    password='$password'
+    where students .studentsId=$id
+multi;
+
+
+    $result = mysqli_query($link, $sql);
+    $_SESSION['user'] = $username;
     header("location:index.php");
     exit();
 } else {
     $sql = <<<multi
-    select * from employee where employeeId =$id
+    select * from students  where studentsId =$id
 multi;
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($result);
@@ -55,49 +74,43 @@ multi;
         }
     </style>
 </head>
-
 <body>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <form id="form1" name="form1" method="post">
+    <table width="300" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
 
-    <form method="post">
-        <div class="form-group row box">
-            <label for="firstName " class="col-4 col-form-label">First Name</label>
-            <div class="col-8">
-                <input id="firstName" name="firstName" value="<?= $row["firstName"] ?>" type="text" class="form-control">
-            </div>
-        </div>
-        <div class="form-group row box">
-            <label for="lastName" class="col-4 col-form-label">Last Name</label>
-            <div class="col-8">
-                <input id="lastName" name="lastName" value="<?= $row["lastName"] ?>" type="text" class="form-control">
-            </div>
-        </div>
+      <tr>
+        <td colspan="2" align="center" bgcolor="#CCCCCC">
+          <font color="#FFFFFF">會員系統 - 註冊</font>
+        </td>
+      </tr>
+      <tr>
+        <td width="100" align="center" valign="baseline">使用者名稱</td>
+        <td valign="baseline"><input type="text" name="txtUserName" id="txtUserName" /></td>
+      </tr>
+      <tr>
+      <tr>
+        <td width="100" align="center" valign="baseline">使用者電話</td>
+        <td valign="baseline"><input type="text" name="txtUserPhone" id="txtUserPhone" /></td>
+      </tr>
+      <tr>
+      <tr>
+        <td width="100" align="center" valign="baseline">使用者帳號</td>
+        <td valign="baseline"><input type="text" name="txtUserAccount" id="txtUserAccount" /></td>
+      </tr>
+      <tr>
+        <td width="100" align="center" valign="baseline">使用者密碼</td>
+        <td valign="baseline"><input type="password" name="txtPassword" id="txtPassword" /></td>
+      </tr>
+      
+      <tr>
+        <td colspan="2" align="center" bgcolor="#CCCCCC"><input type="submit" name="btnOK" id="btnOK" value="登入" />
+          <input type="reset" name="btnReset" id="btnReset" value="重設" />
+          <input type="submit" name="btnHome" id="btnHome" value="回首頁" />
+        </td>
+      </tr>
 
-        <div class="form-group row box">
-            <label class="col-4">City</label>
-            <div class="col-8">
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input name="cityId" id="city_0" type="radio" <?= ($row["cityId"] == 2) ? "checked" : "" ?> class="custom-control-input" value="2">
-                    <label for="city_0" class="custom-control-label">Taipei</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input name="cityId" id="city_1" type="radio" <?= ($row["cityId"] == 4) ? "checked" : "" ?> class="custom-control-input" value="4">
-                    <label for="city_1" class="custom-control-label">Taichung</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input name="cityId" id="city_2" type="radio" <?= ($row["cityId"] == 6) ? "checked" : "" ?> class="custom-control-input" value="6">
-                    <label for="city_2" class="custom-control-label">Tainin</label>
-                </div>
-            </div>
-        </div>
-        <div class="form-group row box">
-            <div class="offset-4 col-8">
-                <button name="okButton" type="okButton" class="btn btn-primary" value="ok"> 確定</button>
-                <button name="cancelButton" type="cancelButton" class="btn btn-primary" value="ok"> 取消</button>
-            </div>
-        </div>
-    </form>
+    </table>
+  </form>
 </body>
 
 </html>
