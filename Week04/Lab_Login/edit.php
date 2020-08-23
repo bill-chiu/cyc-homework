@@ -18,6 +18,12 @@ if (isset($_POST["btnHome"])) {
     header("Location: index.php");
     exit();
   }
+  if (isset($_POST["btnDelete"])) {
+
+    header("Location: delete.php");
+    exit();
+  }
+
 
 if (!isset($_GET["id"])) {
     die("id not found.");
@@ -26,7 +32,6 @@ $id = $_GET["id"];
 if (!is_numeric($id)) {
     die("id is not a number");
 }
-echo $id;
 require("connDB.php");
 if (isset($_POST["btnOK"])) {
     $username=$_POST["txtUserName"];
@@ -80,7 +85,7 @@ multi;
 
       <tr>
         <td colspan="2" align="center" bgcolor="#CCCCCC">
-          <font color="#FFFFFF">會員系統 - 註冊</font>
+          <font color="#FFFFFF">會員系統 - 編輯</font>
         </td>
       </tr>
       <tr>
@@ -103,9 +108,10 @@ multi;
       </tr>
       
       <tr>
-        <td colspan="2" align="center" bgcolor="#CCCCCC"><input type="submit" name="btnOK" id="btnOK" value="登入" />
+        <td colspan="2" align="center" bgcolor="#CCCCCC"><input type="submit" name="btnOK" id="btnOK" value="修改" />
           <input type="reset" name="btnReset" id="btnReset" value="重設" />
           <input type="submit" name="btnHome" id="btnHome" value="回首頁" />
+          <input type="submit" name="btnDelete" id="btnDelete" value="刪除帳號" />
         </td>
       </tr>
 

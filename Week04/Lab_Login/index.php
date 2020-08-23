@@ -31,14 +31,15 @@ if (isset($_SESSION["user"])) {
           <p>[<a href="admin.php">管理資料</a>]
             <?php
             if ($_SESSION["login_session"] == false) { ?>
-              [<a href="login.php">登入帳號</a>]</a>
+              [<a href="login.php">登入帳號</a>]
+              [<a href="add.php">註冊帳號</a>]</a>
             <?php } else { ?>
 
-              [<a href="sign_out.php">登出帳號</a>]</p>
+              [<a href="sign_out.php">登出帳號</a>]
         <?php } ?>
-        [<a href="add.php">註冊帳號</a>]
+      
   
-        [<a href="edit.php?id=<?=$_SESSION['id']?>">修改帳號</a>]
+        [<a href="edit.php?id=<?=$_SESSION['id']?>">修改帳號</a>]</p>
       
 
 
