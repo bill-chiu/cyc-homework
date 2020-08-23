@@ -32,9 +32,10 @@ if (isset($_POST["btnOK"])) {
 }
 
 //如果按下回首頁
-if (isset($_POST["btnHome"])) {
+if (isset($_POST["btnLogin"])) {
 
-  header("Location: index.php");
+  header("Location: add.php");
+  exit();
 }
 // 檢查是否輸入使用者名稱和密碼
 if ($account != "" && $password != "") {
@@ -133,7 +134,7 @@ if ($account != "" && $password != "") {
       <tr>
         <td colspan="2" align="center" bgcolor="#CCCCCC"><input type="submit" name="btnOK" id="btnOK" value="登入" />
           <input type="reset" name="btnReset" id="btnReset" value="重設" />
-          <input type="submit" name="btnHome" id="btnHome" value="回首頁" onclick="index.php" />
+          <input type="submit" name="btnLogin" id="btnLogin" value="註冊" />
         </td>
       </tr>
 

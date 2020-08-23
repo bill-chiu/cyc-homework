@@ -13,6 +13,7 @@ CREATE TABLE students (
 
 
 INSERT INTO students (username, phone, account, password) VALUES
+('管理員', '0984513254', 'admin', '1234'),
 ('陳會安', '0984513254', 'hueyan', '1234'),
 ('江小魚', '0984444452',  'smallfish', '1234'),
 ('周傑倫', '0912345678',  'jay', '1234'),

@@ -55,25 +55,25 @@ if (isset($_POST["btnHome"])) {
       </tr>
       <tr>
         <td width="100" align="center" valign="baseline">使用者名稱</td>
-        <td valign="baseline"><input type="text" name="txtUserName" id="txtUserName" /></td>
+        <td valign="baseline"><input type="text" name="txtUserName" id="txtUserName" required /></td>
       </tr>
       <tr>
       <tr>
         <td width="100" align="center" valign="baseline">使用者電話</td>
-        <td valign="baseline"><input type="text" name="txtUserPhone" id="txtUserPhone" /></td>
+        <td valign="baseline"><input type="text" name="txtUserPhone" id="txtUserPhone" required/></td>
       </tr>
       <tr>
       <tr>
         <td width="100" align="center" valign="baseline">使用者帳號</td>
-        <td valign="baseline"><input type="text" name="txtUserAccount" id="txtUserAccount" /></td>
+        <td valign="baseline"><input type="text" name="txtUserAccount" id="txtUserAccount"required /></td>
       </tr>
       <tr>
         <td width="100" align="center" valign="baseline">使用者密碼</td>
-        <td valign="baseline"><input type="password" name="txtPassword" id="txtPassword" /></td>
+        <td valign="baseline"><input type="password" name="txtPassword" id="txtPassword" required/></td>
       </tr>
       
       <tr>
-        <td colspan="2" align="center" bgcolor="#CCCCCC"><input type="submit" name="btnOK" id="btnOK" value="登入" />
+        <td colspan="2" align="center" bgcolor="#CCCCCC"><input type="submit" name="btnOK" id="btnOK" value="新增" />
           <input type="reset" name="btnReset" id="btnReset" value="重設" />
           <input type="submit" name="btnHome" id="btnHome" value="回首頁" />
         </td>
