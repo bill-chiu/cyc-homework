@@ -27,7 +27,7 @@ $result = mysqli_query($link, $sql);
   <table width="600" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
     <tr>
       <td align="center" bgcolor="#CCCCCC">
-        <font color="#FFFFFF">會員系統 － 會員專用</font>
+        <font color="#FFFFFF">會員系統 － 管理員專用</font>
       </td>
     </tr>
     <tr>
@@ -48,9 +48,6 @@ $result = mysqli_query($link, $sql);
         <?php } ?>
     </tr>
     <?php if ($_SESSION["id"] == "1") { ?>
-
-
-
 
       <?php while ($row = mysqli_fetch_assoc($result)) { ?>
         <tr>

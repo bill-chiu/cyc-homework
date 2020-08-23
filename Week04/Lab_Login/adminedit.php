@@ -1,29 +1,10 @@
+@@ -0,0 +1,103 @@
 <?php
 
-
-
-
-session_start();
-
-
-// if ($_SESSION["user"]== "Guest") {
-//     header("location:admin.php");
-//     exit();
-// }
-
-
-
-if (isset($_POST["btnHome"])) {
-
-    header("Location: index.php");
+if (isset($_POST["cancelButton"])) {
+    header("location:index.php");
     exit();
-  }
-  if (isset($_POST["btnDelete"])) {
-
-    header("Location: index.php");
-    exit();
-  }
-
+}
 
 if (!isset($_GET["id"])) {
     die("id not found.");
@@ -32,30 +13,26 @@ $id = $_GET["id"];
 if (!is_numeric($id)) {
     die("id is not a number");
 }
+echo $id;
 require("connDB.php");
-if (isset($_POST["btnOK"])) {
-    $username=$_POST["txtUserName"];
-    $userphone=$_POST["txtUserPhone"];
-    $account = $_POST["txtUserAccount"];
-    $password = $_POST["txtPassword"];
-
+if (isset($_POST["okButton"])) {
+    $lastName = $_POST["lastName"];
+    $firstName = $_POST["firstName"];
+    $cityId = $_POST["cityId"];
     $sql = <<<multi
-    update students set 
-    username='$username',
-    phone='$userphone',
-    account='$account',
-    password='$password'
-    where students .studentsId=$id
+    update employee set 
+    lastName='$lastName',
+    firstName='$firstName',
+    cityId=$cityId
+    where employee.employeeId=$id
 multi;
-
-
     $result = mysqli_query($link, $sql);
-    $_SESSION['user'] = $username;
+
     header("location:index.php");
     exit();
 } else {
     $sql = <<<multi
-    select * from students  where studentsId =$id
+    select * from employee where employeeId =$id
 multi;
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_assoc($result);
@@ -79,6 +56,7 @@ multi;
         }
     </style>
 </head>
+
 <body>
   <form id="form1" name="form1" method="post">
     <table width="300" border="0" align="center" cellpadding="5" cellspacing="0" bgcolor="#F2F2F2">
