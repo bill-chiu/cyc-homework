@@ -6,10 +6,10 @@
 session_start();
 
 
-// if ($_SESSION["user"]== "Guest") {
-//     header("location:admin.php");
-//     exit();
-// }
+if ($_SESSION["user"]== "Guest") {
+    header("location:admin.php");
+    exit();
+}
 
 
 
