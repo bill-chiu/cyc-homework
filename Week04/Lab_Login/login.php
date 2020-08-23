@@ -19,14 +19,14 @@ if (!isset($_POST["Verif"])) {
 }
 $_SESSION['verification '] = $_SESSION['verification1 '] * 1000 + $_SESSION['verification2 '] * 100 + $_SESSION['verification3 '] * 10 + $_SESSION['verification4 '];
 
-$username = "";
+$account = "";
 $password = "";
 $verif = "";
 
 //如果按下確認按鈕
 
 if (isset($_POST["btnOK"])) {
-  $username = $_POST["txtUserName"];
+  $account = $_POST["txtUserAccount"];
   $password = $_POST["txtPassword"];
   $verif = $_POST["Verif"];
 }
@@ -37,11 +37,11 @@ if (isset($_POST["btnHome"])) {
   header("Location: index.php");
 }
 // 檢查是否輸入使用者名稱和密碼
-if ($username != "" && $password != "") {
+if ($account != "" && $password != "") {
   // 建立MySQL的資料庫連接 
   require("connDB.php");
   // 建立SQL指令字串
-  $sql = "SELECT * FROM students WHERE `password`='$password' AND `username`='$username'";
+  $sql = "SELECT * FROM students WHERE `password`='$password' AND `account`='$account'";
 
   // 執行SQL查詢
   $result = mysqli_query($link, $sql);
@@ -49,9 +49,11 @@ if ($username != "" && $password != "") {
   
   // 是否有查詢到使用者記錄以及驗證碼是否正確
   if ($total_records > 0 && $_SESSION['verification '] == $verif) {
+
+    $row = mysqli_fetch_assoc($result);
     // && $_SESSION['verification '] == $verif
     // 成功登入, 指定Session變數
-    $_SESSION['user'] = $username;
+    $_SESSION['user'] =  $row["username"];
     $_SESSION["login_session"] = true;
 
     header("Location: index.php");
@@ -107,23 +109,23 @@ if ($username != "" && $password != "") {
         </td>
       </tr>
       <tr>
-        <td width="80" align="center" valign="baseline">使用者帳號</td>
-        <td valign="baseline"><input type="text" name="txtUserName" id="txtUserName" /></td>
+        <td width="100" align="center" valign="baseline">使用者帳號</td>
+        <td valign="baseline"><input type="text" name="txtUserAccount" id="txtUserAccount" /></td>
       </tr>
       <tr>
-        <td width="80" align="center" valign="baseline">使用者密碼</td>
+        <td width="100" align="center" valign="baseline">使用者密碼</td>
         <td valign="baseline"><input type="password" name="txtPassword" id="txtPassword" /></td>
       </tr>
       <tr>
-        <td>
-          <font size="2">驗證碼:</font>
+        <td width="100" align="center" valign="baseline">
+          <font size="4">驗證碼:</font>
           <p><img src="<?php echo "images/" . $_SESSION['verification1 '] . '.png' ?>" />
             <img src="<?php echo "images/" . $_SESSION['verification2 '] . '.png' ?>" />
             <img src="<?php echo "images/" . $_SESSION['verification3 '] . '.png' ?>" />
             <img src="<?php echo "images/" . $_SESSION['verification4 '] . '.png' ?>" /></p>
         </td>
 
-        <td><input type="text" name="Verif" size="15" maxlength="10" />
+        <td><input type="text" name="Verif"  />
         </td>
 
       </tr>

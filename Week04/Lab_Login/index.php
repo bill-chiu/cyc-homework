@@ -36,6 +36,7 @@ if (isset($_SESSION["user"])) {
 
               [<a href="sign_out.php">登出帳號</a>]</p>
         <?php } ?>
+        [<a href="add.php">新增帳號</a>]
         </td>
       </tr>
       <tr>
