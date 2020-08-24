@@ -11,7 +11,7 @@
         /Week04/Lab_Login/myschool.txt 複製sql 並輸入到資料庫
 
         index 可以選擇管理資料或是登入 若是沒登入 顯示This page for member only. 並選擇登入或是回首頁
-        選擇登入介面後 需輸入帳密 (測試用帳密:jay / 1234 or jolin / 1234)
+        選擇登入介面後 需輸入帳密 (測試用帳密:admin / 1234 or jolin / 1234)
 
             若沒輸入 顯示 使用者名稱或密碼未輸入!
 

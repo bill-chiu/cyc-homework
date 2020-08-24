@@ -5,14 +5,10 @@
 
 session_start();
 
-
 if ($_SESSION["user"]== "Guest") {
     header("location:admin.php");
     exit();
 }
-
-
-
 if (isset($_POST["btnHome"])) {
 
     header("Location: index.php");
@@ -33,7 +29,7 @@ if (!is_numeric($id)) {
     die("id is not a number");
 }
 require("connDB.php");
-if (isset($_POST["btnOK"])) {
+if (isset($_POST["btnOK"])&&$_POST["txtUserPhone"]!=""&&$_POST["txtUserAccount"]!=""&&$_POST["txtPassword"]!="") {
     $username=$_POST["txtUserName"];
     $userphone=$_POST["txtUserPhone"];
     $account = $_POST["txtUserAccount"];
@@ -47,13 +43,13 @@ if (isset($_POST["btnOK"])) {
     password='$password'
     where students .studentsId=$id
 multi;
-
-
     $result = mysqli_query($link, $sql);
-    $_SESSION['user'] = $username;
+    if( $_SESSION['id']!="1"){
+    $_SESSION['user'] = $username;}
     header("location:index.php");
     exit();
 } else {
+
     $sql = <<<multi
     select * from students  where studentsId =$id
 multi;
@@ -62,6 +58,7 @@ multi;
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,6 +66,7 @@ multi;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="css/jquery.toast.css">
     <style>
         .box {
 
@@ -85,26 +83,29 @@ multi;
 
       <tr>
         <td colspan="2" align="center" bgcolor="#CCCCCC">
-          <font color="#FFFFFF">會員系統 - 編輯</font>
+          <font color="#FFFFFF">會員系統 - 編輯</font><br>
+          <a>hello <?= $_SESSION["user"] ?> </a>
         </td>
+        
       </tr>
+      
       <tr>
         <td width="100" align="center" valign="baseline">使用者名稱</td>
-        <td valign="baseline"><input type="text" name="txtUserName" id="txtUserName" /></td>
+        <td valign="baseline"><input type="text" name="txtUserName" id="txtUserName" value="<?= $row["username"] ?>"></td>
       </tr>
       <tr>
       <tr>
         <td width="100" align="center" valign="baseline">使用者電話</td>
-        <td valign="baseline"><input type="text" name="txtUserPhone" id="txtUserPhone" /></td>
+        <td valign="baseline"><input type="text" name="txtUserPhone" id="txtUserPhone" value="<?= $row["phone"] ?>"/></td>
       </tr>
       <tr>
       <tr>
         <td width="100" align="center" valign="baseline">使用者帳號</td>
-        <td valign="baseline"><input type="text" name="txtUserAccount" id="txtUserAccount" /></td>
+        <td valign="baseline"><input type="text" name="txtUserAccount" id="txtUserAccount" value="<?= $row["account"] ?>"/></td>
       </tr>
       <tr>
         <td width="100" align="center" valign="baseline">使用者密碼</td>
-        <td valign="baseline"><input type="password" name="txtPassword" id="txtPassword" /></td>
+        <td valign="baseline"><input type="password" name="txtPassword" id="txtPassword" value="<?= $row["password"] ?>"/></td>
       </tr>
       
       <tr>
