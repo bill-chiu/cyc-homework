@@ -16,7 +16,7 @@ if (isset($_POST["btnHome"])) {
   }
   if (isset($_POST["btnDelete"])) {
 
-    header("Location: index.php");
+    header("Location: delete.php");
     exit();
   }
 
